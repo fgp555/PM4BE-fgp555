@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
-  getUsers() {
-    return 'getProducts!';
+  constructor(private usersRepository: UsersRepository) {}
+  async getUsers() {
+    const dbUsers = await this.usersRepository.getUsers();
+    return dbUsers;
   }
 }

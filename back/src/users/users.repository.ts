@@ -27,8 +27,12 @@ export class UsersRepository {
   ];
 
   async getUsers(page: number, limit: number): Promise<IUser[]> {
-    const start = (page - 1) * limit;
-    return this.users.slice(start, start + limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const paginatedUsers = this.users.slice(startIndex, endIndex);
+    return paginatedUsers;
+    // const start = (page - 1) * limit;
+    // return this.users.slice(start, start + limit);
   }
 
   async getUserById(id: number): Promise<IUser | undefined> {

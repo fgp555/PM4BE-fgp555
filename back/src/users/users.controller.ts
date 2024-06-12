@@ -17,14 +17,15 @@ import { UserService } from './users.service';
 import { Response } from 'express';
 import { IUser } from './users.interfaces';
 import { UserWithoutPassword } from './user.types';
-// import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
+import { log } from 'console';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async getUsers(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 5,
@@ -39,7 +40,7 @@ export class UserController {
   }
 
   @Get(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async getUser(@Param('id') id: string, @Res() res: Response) {
     try {
       const user = await this.userService.getUserById(Number(id));
@@ -63,7 +64,7 @@ export class UserController {
   }
 
   @Put(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async updateUser(
     @Param('id') id: string,
     @Body() user: Partial<IUser>,
@@ -81,7 +82,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async deleteUser(@Param('id') id: string, @Res() res: Response) {
     try {
       const deletedId = await this.userService.deleteUser(Number(id));

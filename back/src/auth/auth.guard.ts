@@ -1,28 +1,18 @@
-// src/auth/auth.guard.ts
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
+import { Observable } from 'rxjs';
+
+function validateRequest(request: Request) {
+    const Authorization = request.headers['authorization'];
+    return Authorization === 'Basic: <email>:<password>';
+}
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  canActivate(context: ExecutionContext): boolean {
-    const request: Request = context.switchToHttp().getRequest();
-    const authHeader = request.headers['authorization'];
-
-    if (!authHeader) {
-      throw new UnauthorizedException('Authorization header missing');
-    }
-
-    const [type, credentials] = authHeader.split(' ');
-    if (type !== 'Basic' || !credentials) {
-      throw new UnauthorizedException('Invalid authorization header format');
-    }
-
-    const [email, password] = Buffer.from(credentials, 'base64').toString('utf8').split(':');
-    if (!email || !password) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
-
-    // Aquí se debería implementar la lógica para validar el email y password
-    return true;
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest();
+    return validateRequest(request);
   }
 }

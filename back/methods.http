@@ -2,6 +2,7 @@
 
 ## Create a new product
 POST http://localhost:3000/products
+Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
 {
@@ -15,7 +16,7 @@ Content-Type: application/json
 ###
 
 ### Get all products (with pagination)
-GET http://localhost:3000/products?page=1&limit=5
+GET http://localhost:3000/products?page=3&limit=5
 
 ### Get all products
 GET http://localhost:3000/products
@@ -29,6 +30,7 @@ GET http://localhost:3000/products/1
 
 ## Update a product by ID
 PUT http://localhost:3000/products/1
+Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
 {
@@ -43,6 +45,8 @@ Content-Type: application/json
 
 ## Delete a product by ID
 DELETE http://localhost:3000/products/1
+Authorization: Basic: <email>:<password>
+
 
 ###
 
@@ -65,20 +69,20 @@ Content-Type: application/json
 ###
 
 ## Get all users (with pagination) - Requires Authorization
-GET http://localhost:3000/users?page=1&limit=5
-Authorization: Basic dXNlcjFAZ21haWwuY29tOjEyMw==
+GET http://localhost:3000/users?page=3&limit=5
+Authorization: Basic: <email>:<password>
 
 ###
 
 ## Get a specific user by ID - Requires Authorization
 GET http://localhost:3000/users/1
-Authorization: Basic dXNlcjFAZ21haWwuY29tOjEyMw==
+Authorization: Basic: <email>:<password>
 
 ###
 
 ## Update a user by ID - Requires Authorization
 PUT http://localhost:3000/users/1
-Authorization: Basic dXNlcjFAZ21haWwuY29tOjEyMw==
+Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
 {
@@ -93,7 +97,7 @@ Content-Type: application/json
 
 ## Delete a user by ID - Requires Authorization
 DELETE http://localhost:3000/users/1
-Authorization: Basic dXNlcjFAZ21haWwuY29tOjEyMw==
+Authorization: Basic: <email>:<password>
 
 ###
 
@@ -101,6 +105,7 @@ Authorization: Basic dXNlcjFAZ21haWwuY29tOjEyMw==
 
 ## Sign in
 POST http://localhost:3000/auth/signin
+Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
 {

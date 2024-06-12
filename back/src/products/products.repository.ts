@@ -23,8 +23,10 @@ export class ProductsRepository {
   ];
 
   async getProducts(page: number, limit: number) {
-    const start = (page - 1) * limit;
-    return this.products.slice(start, start + limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const paginatedUsers = this.products.slice(startIndex, endIndex);
+    return paginatedUsers;
   }
 
   async getProductById(id: number) {

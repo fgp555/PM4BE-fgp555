@@ -1,6 +1,9 @@
 # PRODUCTS
 
-## Create a new product
+### Create a new product
+POST http://localhost:3000/products/seeder
+
+### Create a new product
 POST http://localhost:3000/products
 Authorization: Basic: <email>:<password>
 Content-Type: application/json
@@ -9,14 +12,15 @@ Content-Type: application/json
   "name": "New Product",
   "description": "A new product",
   "price": 500,
-  "stock": true,
+  "stock": 12,
+  "category": "smartphone",
   "imgUrl": "new-url"
 }
 
 ###
 
 ### Get all products (with pagination)
-GET http://localhost:3000/products?page=3&limit=5
+GET http://localhost:3000/products?page=1&limit=3
 
 ### Get all products
 GET http://localhost:3000/products
@@ -50,7 +54,7 @@ Authorization: Basic: <email>:<password>
 
 ###
 
-# USERS
+# ==================== USERS ====================
 
 ## Create a new user
 POST http://localhost:3000/users
@@ -69,19 +73,23 @@ Content-Type: application/json
 ###
 
 ## Get all users (with pagination) - Requires Authorization
-GET http://localhost:3000/users?page=3&limit=5
+GET http://localhost:3000/users
+Authorization: Basic: <email>:<password>
+
+### Get all users (with pagination) - Requires Authorization
+GET http://localhost:3000/users?page=1&limit=3
 Authorization: Basic: <email>:<password>
 
 ###
 
 ## Get a specific user by ID - Requires Authorization
-GET http://localhost:3000/users/1
+GET http://localhost:3000/users/4800694f-7428-4e10-b73c-32aa02f5963b
 Authorization: Basic: <email>:<password>
 
 ###
 
 ## Update a user by ID - Requires Authorization
-PUT http://localhost:3000/users/1
+PUT http://localhost:3000/users/4800694f-7428-4e10-b73c-32aa02f5963b
 Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
@@ -96,7 +104,7 @@ Content-Type: application/json
 ###
 
 ## Delete a user by ID - Requires Authorization
-DELETE http://localhost:3000/users/1
+DELETE http://localhost:3000/users/94857a08-6e61-4177-8a40-386c0587ea26
 Authorization: Basic: <email>:<password>
 
 ###

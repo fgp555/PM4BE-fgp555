@@ -1,3 +1,5 @@
+// src/modules/users/users.controller.ts
+
 import {
   Controller,
   Get,
@@ -18,11 +20,15 @@ import { Response } from 'express';
 import { IUser } from './users.interfaces';
 import { UserWithoutPassword } from './user.types';
 import { AuthGuard } from '../auth/auth.guard';
-import { log } from 'console';
+import { UsersDbService } from './usersDb.service';
+import { User as UserEntity } from './user.entity';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly usersDbService: UsersDbService,
+  ) {}
 
   @Get()
   @UseGuards(AuthGuard)
@@ -32,7 +38,9 @@ export class UserController {
     @Res() res: Response,
   ) {
     try {
-      const users = await this.userService.getAllUsers(page, limit);
+      // const users = await this.userService.getAllUsers(page, limit);
+      const users = await this.usersDbService.getAllUsers(page, limit);
+
       res.status(HttpStatus.OK).json(users);
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -43,7 +51,8 @@ export class UserController {
   @UseGuards(AuthGuard)
   async getUser(@Param('id') id: string, @Res() res: Response) {
     try {
-      const user = await this.userService.getUserById(Number(id));
+      // const user = await this.userService.getUserById(Number(id));
+      const user = await this.usersDbService.getUserById(id);
       if (!user) {
         throw new NotFoundException('User not found');
       }
@@ -54,10 +63,10 @@ export class UserController {
   }
 
   @Post()
-  async createUser(@Body() user: Omit<IUser, 'id'>, @Res() res: Response) {
+  async createUser(@Body() user: UserEntity, @Res() res: Response) {
     try {
-      const id = await this.userService.createUser(user);
-      res.status(HttpStatus.CREATED).json({ id });
+      const savedUser = await this.usersDbService.saveUser(user);
+      res.status(HttpStatus.CREATED).json(savedUser);
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -71,7 +80,8 @@ export class UserController {
     @Res() res: Response,
   ) {
     try {
-      const updatedId = await this.userService.updateUser(Number(id), user);
+      // const updatedId = await this.userService.updateUser(Number(id), user);
+      const updatedId = await this.usersDbService.updateUser(id, user);
       if (updatedId === null) {
         throw new NotFoundException('User not found');
       }
@@ -85,11 +95,12 @@ export class UserController {
   @UseGuards(AuthGuard)
   async deleteUser(@Param('id') id: string, @Res() res: Response) {
     try {
-      const deletedId = await this.userService.deleteUser(Number(id));
+      // const deletedId = await this.userService.deleteUser(Number(id));
+      const deletedId = await this.usersDbService.deleteUser(id);
       if (deletedId === null) {
         throw new NotFoundException('User not found');
       }
-      res.status(HttpStatus.OK).json({ id: deletedId });
+      res.status(HttpStatus.OK).json({ id });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-// import { Category } from '../categories/categories.entity';
+import { Category } from '../categories/categories.entity';
 // import { OrderDetail } from '../order-details/order-details.entity';
 
 @Entity({ name: 'products' })
@@ -32,14 +32,11 @@ export class Product {
   @Column({ default: 'default-image-url' })
   imgUrl: string;
 
-  @Column()
-  category: string;
+  // @Column()
+  // category: string;
 
-  @Column({nullable: true})
-  category2: string;
-
-  // @ManyToOne(() => Category, (category) => category.product)
-  // category: Category;
+  @ManyToOne(() => Category, (category) => category.product)
+  category: Category;
 
   // @ManyToMany(() => OrderDetail, orderDetail => orderDetail.products)
   // @JoinTable()

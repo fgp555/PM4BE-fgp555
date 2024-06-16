@@ -3,12 +3,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './products.entity';
+import { Category } from '../categories/categories.entity';
 
 @Injectable()
 export class ProductSeederService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
   ) {}
 
   async seed() {
@@ -27,22 +30,21 @@ export class ProductSeederService {
         stock: 12,
         category: 'smartphone',
       },
-      {
-        name: 'Motorola Edge 40',
-        description: 'The best smartphone in the world',
-        price: 179.89,
-        stock: 12,
-        category: 'smartphone',
-      },
     ];
 
     for (const product of products) {
-      const exists = await this.productRepository.findOneBy({
-        name: product.name,
-      });
-      if (!exists) {
-        await this.productRepository.save(product);
+      const category = await this.categoryRepository.findOneBy({ name: product.category });
+      if (category) {
+        const exists = await this.productRepository.findOneBy({ name: product.name });
+        if (!exists) {
+          await this.productRepository.save({
+            ...product,
+            category: category,
+          });
+        }
       }
     }
+
+    
   }
 }

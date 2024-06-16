@@ -8,15 +8,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(loggerGlobal);
 
-  // const productSeeder = app.get(ProductSeederService);
-  // await productSeeder.seed();
-
   const categorySeeder = app.get(CategorySeederService);
   await categorySeeder.seed();
 
   const productSeeder = app.get(ProductSeederService);
   await productSeeder.seed();
-
 
   await app.listen(3000);
 }

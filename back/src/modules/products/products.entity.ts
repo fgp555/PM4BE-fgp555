@@ -35,7 +35,7 @@ export class Product {
   // @Column()
   // category: string;
 
-  @ManyToOne(() => Category, (category) => category.product)
+  @ManyToOne(() => Category)
   category: Category;
 
   // @ManyToMany(() => OrderDetail, orderDetail => orderDetail.products)

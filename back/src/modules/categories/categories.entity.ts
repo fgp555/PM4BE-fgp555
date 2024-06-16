@@ -18,13 +18,13 @@ export class Category {
   @Column({ length: 50 })
   name: string;
 
-  @OneToOne(() => Product)
-  @JoinColumn()
-  product: Product;
+  // @OneToOne(() => Product)
+  // @JoinColumn()
+  // product: Product;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  // @CreateDateColumn()
+  // createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  // @UpdateDateColumn()
+  // updatedAt: Date;
 }

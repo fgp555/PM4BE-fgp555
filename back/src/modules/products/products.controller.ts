@@ -18,8 +18,11 @@ import { Response } from 'express';
 import { IProduct } from './products.interfaces';
 import { AuthGuard } from '../auth/auth.guard';
 import { ProductsDbService } from './productsDb.service';
-import { Product as ProductEntity } from './products.entity';
+import { Product, Product as ProductEntity } from './products.entity';
 import { ProductSeederService } from './product.seed';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Category } from '../categories/categories.entity';
 
 @Controller('products')
 export class ProductController {
@@ -27,6 +30,11 @@ export class ProductController {
     private readonly productService: ProductService,
     private readonly productsDbService: ProductsDbService,
     private readonly productSeederService: ProductSeederService,
+
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
   ) {}
 
   @Post('seeder')
@@ -37,7 +45,6 @@ export class ProductController {
       message: 'Database seeding successful',
     };
   }
-
 
   @Get()
   async getProducts(
@@ -58,8 +65,24 @@ export class ProductController {
   @Post()
   @UseGuards(AuthGuard)
   async createProduct(@Body() product: ProductEntity, @Res() res: Response) {
-    const result = await this.productsDbService.createProduct(product);
-    res.status(HttpStatus.CREATED).json(result);
+    console.log(typeof product.category);
+    // const cat123 = product.category
+    const category = await this.categoryRepository.findOneBy({
+      name: product.category.name,
+    });
+    if (category) {
+      const exists = await this.productRepository.findOneBy({
+        name: product.name,
+      });
+      if (!exists) {
+        await this.productRepository.save({
+          ...product,
+          category: category,
+        });
+      }
+    }
+    // const result = await this.productsDbService.createProduct(product);
+    // res.status(HttpStatus.CREATED).json(result);
   }
 
   // @Put(':id')

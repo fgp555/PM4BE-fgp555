@@ -1,5 +1,5 @@
 // order-detail.entity.ts
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, JoinColumn, ManyToMany } from 'typeorm';
 import { Order } from '../orders/orders.entity';
 import { Product } from '../products/products.entity';
 import { v4 as uuid } from 'uuid';
@@ -27,6 +27,10 @@ export class OrderDetail {
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id' }) // Explicitly specify the foreign key column name
   product_id: Product;
+
+  // @ManyToMany(() => Product)
+  // @JoinColumn({ name: 'product_id' }) // Explicitly specify the foreign key column name
+  // product_id: Product;
 }
 
 /* 

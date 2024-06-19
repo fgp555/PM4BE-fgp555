@@ -95,15 +95,51 @@ export class OrderService {
     return await this.orderRepository.find();
   }
 
+  // async getOrderByIdService(id: string) {
+  //   // const orderFound = await this.orderRepository.find();
+  //   const orderFound = await this.orderRepository.findOneBy({ id });
+  //   if (!orderFound) {
+  //     throw new NotFoundException(`Order with id ${id} not found`);
+  //   }
+
+  //   return orderFound;
+
+  //   // return await this.orderRepository.findOneBy({ id });
+  // }
   async getOrderByIdService(id: string) {
-    // const orderFound = await this.orderRepository.find();
+    // Fetch the order by ID
     const orderFound = await this.orderRepository.findOneBy({ id });
     if (!orderFound) {
       throw new NotFoundException(`Order with id ${id} not found`);
     }
 
-    return orderFound;
+    // Fetch the order details associated with the order
+    const orderDetails = await this.orderDetailRepository.find({
+      where: { order_id: { id: orderFound.id } },
+      relations: ['product_id'],
+    });
 
-    // return await this.orderRepository.findOneBy({ id });
+    console.log('orderDetails', orderDetails);
+
+    // Map the order details to include the product information
+    // const detailedOrder = {
+    //   ...orderFound,
+    //   orderDetails: orderDetails.map(detail => ({
+
+    //     id: detail.id,
+    //     productId: detail.product_id.id,
+    //     productName: detail.product_id.name,
+    //     productPrice: detail.product_id.price,
+    //     productStock: detail.product_id.stock,
+    //     productDescription: detail.product_id.description,
+    //     productImage: detail.product_id.imgUrl,
+    //     // quantity: detail.quantity, // Assuming you have a quantity field in OrderDetail
+    //   })),
+    // };
+
+    const detailedOrder = { ...orderFound, orderDetails };
+
+    return detailedOrder;
+    // return "temp"
   }
 }

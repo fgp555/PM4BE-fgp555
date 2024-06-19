@@ -1,6 +1,6 @@
 // src/modules/orders/order.controller.ts
 
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { OrderService } from './order.service';
 
 @Controller('orders')
@@ -10,12 +10,18 @@ export class OrderController {
   @Post()
   async addOrderController(@Body() order: any) {
     const result = await this.orderService.addOrderService(order);
-    return result
+    return result;
   }
 
   @Get()
   async getOrderController() {
     const result = await this.orderService.getOrderService();
-    return result
+    return result;
+  }
+
+  @Get(':id')
+  async getOrderByIdController(@Param('id') id: string) {
+    const result = await this.orderService.getOrderByIdService(id);
+    return result;
   }
 }

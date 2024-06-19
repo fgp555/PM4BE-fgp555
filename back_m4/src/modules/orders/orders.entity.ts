@@ -6,6 +6,7 @@ import {
   OneToMany,
   Column,
   JoinColumn,
+  JoinTable,
 } from 'typeorm';
 import { User } from '../users/user.entity';
 import { OrderDetail } from '../order-details/order-details.entity';
@@ -23,7 +24,12 @@ export class Order {
   @Column({ default: new Date(), type: 'date' })
   date: Date;
 
+  // @Column({ default: 0 })
+  @Column('decimal', { precision: 10, scale: 2, nullable: true })
+  totalAmount: number;
+
   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order_id)
+  @JoinTable()
   orderDetails: OrderDetail[];
 }
 

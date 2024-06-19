@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './orders.entity';
 import { Repository } from 'typeorm';
@@ -35,10 +39,10 @@ export class OrderService {
     newOrder.user_id = userFound;
     await this.orderRepository.save(newOrder);
 
-    // ========== productFound ==========
     let totalAmount = 0;
     const orderDetails = [];
 
+    // ========== productFound ==========
     for (const productRequest of products) {
       const productFound = await this.productRepository.findOneBy({
         id: productRequest.id,
@@ -49,22 +53,57 @@ export class OrderService {
         );
       }
 
-      // if (productFound.stock <= 0) {
-      //   throw new BadRequestException(`Product with id ${productRequest.id} is out of stock`);
-      // }
+      // ========== Update productFound ==========
+      if (productFound.stock <= 0) {
+        throw new BadRequestException(
+          `Product with id ${productRequest.id} is out of stock`,
+        );
+      }
 
+      totalAmount += Number(productFound.price);
+      productFound.stock -= 1;
+      await this.productRepository.save(productFound);
+
+      if (productFound.stock <= 0) {
+        throw new BadRequestException(
+          `Product with id ${productRequest.id} is out of stock`,
+        );
+      }
+
+      // ========== newOrderDetail ==========
       const newOrderDetail = new OrderDetail();
       newOrderDetail.order_id = newOrder;
       newOrderDetail.product_id = productFound;
       newOrderDetail.price = productFound.price;
       await this.orderDetailRepository.save(newOrderDetail);
+
+      orderDetails.push(newOrderDetail);
     }
 
-    // complete the code
-    return body;
+    newOrder.totalAmount = totalAmount;
+    await this.orderRepository.save(newOrder);
+
+    return {
+      orderId: newOrder.id,
+      totalAmount: newOrder.totalAmount,
+      orderDetails: orderDetails.map((detail) => detail.id),
+    };
+    // return body
   }
 
   async getOrderService() {
     return await this.orderRepository.find();
+  }
+
+  async getOrderByIdService(id: string) {
+    // const orderFound = await this.orderRepository.find();
+    const orderFound = await this.orderRepository.findOneBy({ id });
+    if (!orderFound) {
+      throw new NotFoundException(`Order with id ${id} not found`);
+    }
+
+    return orderFound;
+
+    // return await this.orderRepository.findOneBy({ id });
   }
 }

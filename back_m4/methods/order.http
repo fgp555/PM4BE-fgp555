@@ -4,17 +4,19 @@ POST http://localhost:3000/orders
 Content-Type: application/json
 
 {
-  "userId": "66c5ad3e-a354-4bc4-9e39-7a32a6d8f03f",
-
+  "userId": "476e40ca-9b81-44ef-b643-da8d05010d87",
   "products": [
     {
-      "id": "0cf8de66-8640-4d68-8cd0-00983c7e302c"
+      "id": "edf75a6e-6f47-461c-aa80-a8b1104be8b8"
     },
     {
-      "id": "bdae8016-34fb-4144-a7f5-0f6b53645694"
+      "id": "c1c41e5d-e563-494a-89bc-3935f6f6bd6e"
     }
   ]
 }
 
 ###
 GET http://localhost:3000/orders
+
+###
+GET http://localhost:3000/orders/ac4619e9-d3ec-4f04-a7c1-59438e5b3dba

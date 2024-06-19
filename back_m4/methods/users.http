@@ -49,7 +49,7 @@ Content-Type: application/json
 ###
 
 ## Delete a user by ID - Requires Authorization
-DELETE http://localhost:3000/users/0f880d41-15b1-453a-8cd5-c8cada0f6ffd
+DELETE http://localhost:3000/users/f2a78ba3-814a-4217-8919-b63ea918a32a
 Authorization: Basic: <email>:<password>
 
 ###

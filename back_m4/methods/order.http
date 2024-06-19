@@ -1,0 +1,20 @@
+# methods/order.http
+
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "userId": "66c5ad3e-a354-4bc4-9e39-7a32a6d8f03f",
+
+  "products": [
+    {
+      "id": "0cf8de66-8640-4d68-8cd0-00983c7e302c"
+    },
+    {
+      "id": "bdae8016-34fb-4144-a7f5-0f6b53645694"
+    }
+  ]
+}
+
+###
+GET http://localhost:3000/orders

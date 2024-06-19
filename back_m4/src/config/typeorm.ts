@@ -18,7 +18,7 @@ const config = {
   // entities: [User, Todo],
   // synchronize: false,
   synchronize: true, // Enable schema synchronization
-  dropSchema: true, // Drop schema on every application start
+  // dropSchema: true, // Drop schema on every application start
   logging: true,
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.js,.ts}'],

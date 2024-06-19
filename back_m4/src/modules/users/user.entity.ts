@@ -14,6 +14,9 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
+  // @PrimaryGeneratedColumn()
+  // id: number;
+
   @Column({ length: 50 })
   name: string;
 
@@ -36,8 +39,8 @@ export class User {
   @Column({ length: 50, nullable: true })
   city: string;
 
-  // @OneToMany(() => Order, order => order.user)
-  // orders: Order[];
+  @OneToMany(() => Order, (order) => order.user_id)
+  orders: Order[];
 
   // @CreateDateColumn()
   // createdAt: Date;

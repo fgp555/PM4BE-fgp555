@@ -20,14 +20,14 @@ export class ProductSeederService {
         name: 'Iphone 15',
         description: 'The best smartphone in the world',
         price: 199.99,
-        stock: 12,
+        stock: 2,
         category: 'smartphone',
       },
       {
         name: 'Samsung Galaxy S23',
         description: 'The best smartphone in the world',
         price: 150,
-        stock: 12,
+        stock: 2,
         category: 'smartphone',
       },
     ];

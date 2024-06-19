@@ -43,7 +43,7 @@ export class UsersDbService {
 
   async deleteUser(id: string): Promise<any | null> {
     const deleteResult = await this.usersRepository.delete(id);
-    console.log(deleteResult);
+    console.log("46 deleteResult", deleteResult);
     if (deleteResult.affected === 0) {
       return null;
     }

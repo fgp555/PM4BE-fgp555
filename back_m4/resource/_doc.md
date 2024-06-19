@@ -22,4 +22,8 @@ npm run migration:run
 
 npm run start:dev
 
+
+# Lecture 6
+npm i class-validator class-transformer
+
 ```

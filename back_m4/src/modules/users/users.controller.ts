@@ -14,6 +14,8 @@ import {
   UseGuards,
   NotFoundException,
   BadRequestException,
+  UseInterceptors,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { Response } from 'express';
@@ -22,6 +24,8 @@ import { UserWithoutPassword } from './user.types';
 import { AuthGuard } from '../auth/auth.guard';
 import { UsersDbService } from './usersDb.service';
 import { User as UserEntity } from './user.entity';
+import { CreateUserDto } from './dtos/create-user.dto';
+import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
 
 @Controller('users')
 export class UserController {
@@ -63,7 +67,13 @@ export class UserController {
   }
 
   @Post()
-  async createUser(@Body() user: UserEntity, @Res() res: Response) {
+  @UseInterceptors(DateAdderInterceptor)
+  async createUser(
+    @Body() user: CreateUserDto,
+    @Res() res: Response,
+    @Req() req: Request & { now: string },
+  ) {
+    console.log('76 req.now', req.now);
     try {
       const savedUser = await this.usersDbService.saveUser(user);
       res.status(HttpStatus.CREATED).json(savedUser);

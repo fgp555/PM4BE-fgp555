@@ -12,7 +12,7 @@ export class UsersDbService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async saveUser(user: User) {
+  async saveUser(user: any/* Omit<User, 'id'> */)/* : Promise<User>  */{
     return await this.usersRepository.save(user);
   }
 

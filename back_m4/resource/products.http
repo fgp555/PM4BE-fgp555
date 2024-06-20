@@ -9,9 +9,9 @@ Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
 {
-  "name": "New Product 3",
+  "name": "Iphone 14",
   "description": "A new product",
-  "price": 500,
+  "price": 50,
   "stock": 1,
   "category": "smartphone",
   "imgUrl": "http://example.com/new-url.jpg"

@@ -7,10 +7,17 @@ import { Product } from './products.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductSeederService } from './product.seed';
 import { Category } from '../categories/categories.entity';
+import { CategoryService } from '../categories/categories.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product, Category])],
-  providers: [ProductService, ProductsDbService, ProductsRepository, ProductSeederService],
+  providers: [
+    ProductService,
+    ProductsDbService,
+    ProductsRepository,
+    ProductSeederService,
+    CategoryService
+  ],
   controllers: [ProductController],
   exports: [ProductSeederService],
 })

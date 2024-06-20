@@ -12,6 +12,7 @@ import { OrderDetail } from '../order-details/order-details.entity';
 
 @Injectable()
 export class ProductsDbService {
+
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
@@ -19,7 +20,8 @@ export class ProductsDbService {
     // private readonly orderDetailRepository: Repository<OrderDetail>,
   ) {}
 
-  async createProduct(product:any /* Product */)/* : Promise<Product> */ {
+  async createProduct(product: any /* Product */) /* : Promise<Product> */ {
+    // return product
     const newProduct = this.productsRepository.create(product);
     const savedProduct = await this.productsRepository.save(newProduct);
     return savedProduct;
@@ -43,6 +45,17 @@ export class ProductsDbService {
       currentPage: page,
       totalPages: Math.ceil(total / limit),
     };
+  }
+
+ async findByName //   if (relatedOrderDetails.length > 0) {
+    (name: string) {
+    // const product = await this.productsRepository.findOne({ where: { name } });
+    // if (!product) {
+    //   throw new NotFoundException('Product not found');
+    // }
+    // return product;
+    return this.productsRepository.findOne({ where: { name } });
+
   }
 
   async getProductById(id: string) /* : Promise<IProduct> */ {

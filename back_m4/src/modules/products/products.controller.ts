@@ -25,6 +25,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from '../categories/categories.entity';
 import { CreateProductDto } from './dto/create-product.dto';
+import { CategoryService } from '../categories/categories.service';
 
 @Controller('products')
 export class ProductController {
@@ -32,6 +33,7 @@ export class ProductController {
     private readonly productService: ProductService,
     private readonly productsDbService: ProductsDbService,
     private readonly productSeederService: ProductSeederService,
+    private readonly categoryService: CategoryService,
 
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
@@ -70,26 +72,25 @@ export class ProductController {
   @Post()
   @UseGuards(AuthGuard)
   async createProduct(@Body() product: CreateProductDto, @Res() res: Response) {
-    const category = await this.categoryRepository.findOneBy({
-      name: product.category,
-    });
-    console.log('76 category', category);
-
-    if (category) {
-      const exists = await this.productRepository.findOneBy({
-        name: product.name,
-      });
-      console.log('80 exists', exists);
-      if (!exists) {
-        await this.productRepository.save({
-          ...product,
-          category: category,
-        });
-      }
+    const category = await this.categoryService.findByName(product.category);
+    if (!category) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Category not found' });
     }
 
-    const result = await this.productsDbService.createProduct(product);
-    res.status(HttpStatus.CREATED).json(result);
+    const exists = await this.productsDbService.findByName(product.name);
+    if (exists) {
+      return res
+        .status(HttpStatus.CONFLICT)
+        .json({ message: 'Product already exists' });
+    }
+
+    const newProduct = await this.productsDbService.createProduct({
+      ...product,
+      category,
+    });
+    return res.status(HttpStatus.CREATED).json(newProduct);
   }
 
   @Put(':id')

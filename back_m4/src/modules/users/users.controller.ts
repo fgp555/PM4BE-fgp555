@@ -16,6 +16,10 @@ import {
   BadRequestException,
   UseInterceptors,
   Req,
+  HttpException,
+  ParseUUIDPipe,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { Response } from 'express';
@@ -26,6 +30,7 @@ import { UsersDbService } from './usersDb.service';
 import { User as UserEntity } from './user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Controller('users')
 export class UserController {
@@ -36,24 +41,32 @@ export class UserController {
 
   @Get()
   @UseGuards(AuthGuard)
+  // @UsePipes(new ValidationPipe({ transform: true }))
   async getUsers(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 5,
     @Res() res: Response,
   ) {
     try {
-      // const users = await this.userService.getAllUsers(page, limit);
       const users = await this.usersDbService.getAllUsers(page, limit);
+      // return users;
 
       res.status(HttpStatus.OK).json(users);
     } catch (error) {
-      throw new BadRequestException(error.message);
+      // throw new BadRequestException(error.message);
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: error.message,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
   @Get(':id')
   @UseGuards(AuthGuard)
-  async getUser(@Param('id') id: string, @Res() res: Response) {
+  async getUser(@Param('id', ParseUUIDPipe) id: string, @Res() res: Response) {
     try {
       // const user = await this.userService.getUserById(Number(id));
       const user = await this.usersDbService.getUserById(id);
@@ -85,8 +98,8 @@ export class UserController {
   @Put(':id')
   @UseGuards(AuthGuard)
   async updateUser(
-    @Param('id') id: string,
-    @Body() user: Partial<IUser>,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() user: UpdateUserDto,
     @Res() res: Response,
   ) {
     try {
@@ -103,7 +116,7 @@ export class UserController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  async deleteUser(@Param('id') id: string, @Res() res: Response) {
+  async deleteUser(@Param('id', ParseUUIDPipe) id: string, @Res() res: Response) {
     try {
       // const deletedId = await this.userService.deleteUser(Number(id));
       const deletedId = await this.usersDbService.deleteUser(id);

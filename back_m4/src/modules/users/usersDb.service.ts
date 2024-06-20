@@ -25,7 +25,8 @@ export class UsersDbService {
   }
 
   async getUserById(id: string): Promise<User> {
-    const user = await this.usersRepository.findOne({ where: { id },
+    const user = await this.usersRepository.findOne({ 
+      where: { id },
       relations: ['orders'],
      });
     if (!user) {
@@ -44,6 +45,7 @@ export class UsersDbService {
   }
 
   async deleteUser(id: string): Promise<any | null> {
+    console.log("48 deleteUser")
     const deleteResult = await this.usersRepository.delete(id);
     console.log("46 deleteResult", deleteResult);
     if (deleteResult.affected === 0) {

@@ -12,6 +12,7 @@ import {
   Res,
   UseGuards,
   HttpCode,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ProductService } from './products.service';
 import { Response } from 'express';
@@ -23,6 +24,7 @@ import { ProductSeederService } from './product.seed';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from '../categories/categories.entity';
+import { CreateProductDto } from './dto/create-product.dto';
 
 @Controller('products')
 export class ProductController {
@@ -56,24 +58,28 @@ export class ProductController {
     res.status(HttpStatus.OK).json(products);
   }
 
-  // @Get(':id')
-  // async getProduct(@Param('id') id: string, @Res() res: Response) {
-  //   const product = await this.productService.getProductById(Number(id));
-  //   res.status(HttpStatus.OK).json(product);
-  // }
+  @Get(':id')
+  async getProduct(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Res() res: Response,
+  ) {
+    const product = await this.productsDbService.getProductById(id);
+    res.status(HttpStatus.OK).json(product);
+  }
 
   @Post()
   @UseGuards(AuthGuard)
-  async createProduct(@Body() product: ProductEntity, @Res() res: Response) {
-    console.log(typeof product.category);
-    // const cat123 = product.category
+  async createProduct(@Body() product: CreateProductDto, @Res() res: Response) {
     const category = await this.categoryRepository.findOneBy({
-      name: product.category.name,
+      name: product.category,
     });
+    console.log('76 category', category);
+
     if (category) {
       const exists = await this.productRepository.findOneBy({
         name: product.name,
       });
+      console.log('80 exists', exists);
       if (!exists) {
         await this.productRepository.save({
           ...product,
@@ -81,28 +87,30 @@ export class ProductController {
         });
       }
     }
-    // const result = await this.productsDbService.createProduct(product);
-    // res.status(HttpStatus.CREATED).json(result);
+
+    const result = await this.productsDbService.createProduct(product);
+    res.status(HttpStatus.CREATED).json(result);
   }
 
-  // @Put(':id')
-  // @UseGuards(AuthGuard)
-  // async updateProduct(
-  //   @Param('id') id: string,
-  //   @Body() product: Partial<IProduct>,
-  //   @Res() res: Response,
-  // ) {
-  //   const updatedId = await this.productService.updateProduct(
-  //     Number(id),
-  //     product,
-  //   );
-  //   res.status(HttpStatus.OK).json({ id: updatedId });
-  // }
+  @Put(':id')
+  @UseGuards(AuthGuard)
+  async updateProduct(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() product: Partial<IProduct>,
+    @Res() res: Response,
+  ) {
+    const updatedId = await this.productsDbService.updateProduct(id, product);
+    res.status(HttpStatus.OK).json({ id: updatedId });
+  }
 
-  // @Delete(':id')
-  // @UseGuards(AuthGuard)
-  // async deleteProduct(@Param('id') id: string, @Res() res: Response) {
-  //   const deletedId = await this.productService.deleteProduct(Number(id));
-  //   res.status(HttpStatus.OK).json({ id: deletedId });
-  // }
+  @Delete(':id')
+  @UseGuards(AuthGuard)
+  async deleteProduct(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Res() res: Response,
+  ) {
+    console.log('109 id', id);
+    const deletedId = await this.productsDbService.deleteProduct(id);
+    res.status(HttpStatus.OK).json({ id: deletedId });
+  }
 }

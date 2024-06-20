@@ -4,7 +4,7 @@ POST http://localhost:3000/orders
 Content-Type: application/json
 
 {
-  "userId": "0b5ee2b8-af71-4cbb-aca3-5d915a33aacc",
+  "userId": "273920c5-1af7-4971-bfde-cb59e93cfc88",
   "products": [
     {
       "id": "59205335-2a96-4a02-947e-1154180fde33"

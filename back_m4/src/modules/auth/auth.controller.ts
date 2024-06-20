@@ -2,6 +2,7 @@
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
+import { SignInDto } from './signin.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -9,10 +10,12 @@ export class AuthController {
 
   @Post('signin')
   async signIn(
-    @Body('email') email: string,
-    @Body('password') password: string,
+    // @Body('email') email: string,
+    // @Body('password') password: string,
+    @Body() login: SignInDto,
     @Res() res: Response,
   ) {
+    const { email, password } = login;
     if (!email || !password) {
       res
         .status(HttpStatus.BAD_REQUEST)

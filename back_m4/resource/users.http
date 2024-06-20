@@ -8,7 +8,7 @@ Content-Type: application/json
 {
   "email": "newuser@gmail.com",
   "name": "New User",
-  "password": "password123",
+  "password": "P4ss123@",
   "address": "new address",
   "phone": "987654321",
   "country": "New Country",
@@ -20,7 +20,7 @@ GET http://localhost:3000/users
 Authorization: Basic: <email>:<password>
 
 ### Get all users (with pagination) - Requires Authorization
-GET http://localhost:3000/users?page=1&limit=3
+GET http://localhost:3000/users?page=1&limit=1
 Authorization: Basic: <email>:<password>
 
 ### Get a specific user by ID - Requires Authorization
@@ -41,7 +41,7 @@ Content-Type: application/json
 }
 
 ### Delete a user by ID - Requires Authorization
-DELETE http://localhost:3000/users/f2a78ba3-814a-4217-8919-b63ea918a32a
+DELETE http://localhost:3000/users/b16efb5d-0e7d-41e0-a59c-0b1064170d331
 Authorization: Basic: <email>:<password>
 
 ### AUTHENTICATION

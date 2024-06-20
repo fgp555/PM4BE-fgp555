@@ -24,11 +24,11 @@ GET http://localhost:3000/users?page=1&limit=1
 Authorization: Basic: <email>:<password>
 
 ### Get a specific user by ID - Requires Authorization
-GET http://localhost:3000/users/0b5ee2b8-af71-4cbb-aca3-5d915a33aacc
+GET http://localhost:3000/users/1e60d704-fc00-4ea5-98fc-1df6d1d23ae8
 Authorization: Basic: <email>:<password>
 
 ### Update a user by ID - Requires Authorization
-PUT http://localhost:3000/users/0b5ee2b8-af71-4cbb-aca3-5d915a33aacc
+PUT http://localhost:3000/users/1e60d704-fc00-4ea5-98fc-1df6d1d23ae8
 Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
@@ -41,7 +41,7 @@ Content-Type: application/json
 }
 
 ### Delete a user by ID - Requires Authorization
-DELETE http://localhost:3000/users/b16efb5d-0e7d-41e0-a59c-0b1064170d331
+DELETE http://localhost:3000/users/1e60d704-fc00-4ea5-98fc-1df6d1d23ae8
 Authorization: Basic: <email>:<password>
 
 ### AUTHENTICATION

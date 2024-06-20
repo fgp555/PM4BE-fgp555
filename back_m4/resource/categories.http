@@ -1,5 +1,3 @@
-
-
 ### seeder
 POST http://localhost:3000/categories/seeder
 
@@ -11,11 +9,5 @@ POST http://localhost:3000/categories
 Content-Type: application/json
 Authorization: Basic: <email>:<password>
 
-{ "name": "smartphone" }
+{ "name": "laptop" }
 
-
-###
-
-## Get all categories (with pagination) - Requires Authorization
-GET http://localhost:3000/categories
-Authorization: Basic: <email>:<password>

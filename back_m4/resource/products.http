@@ -9,10 +9,10 @@ Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
 {
-  "name": "Iphone 14",
+  "name": "Iphone 143",
   "description": "A new product",
   "price": 50,
-  "stock": 1,
+  "stock": 10,
   "category": "smartphone",
   "imgUrl": "http://example.com/new-url.jpg"
 }
@@ -27,12 +27,12 @@ GET http://localhost:3000/products
 ###
 
 ## Get a specific product by ID
-GET http://localhost:3000/products/8a033943-9dda-4757-96f1-4c87c5ce5be0
+GET http://localhost:3000/products/3f35f689-cd27-48d4-9faf-57e8b6882a46
 
 ###
 
 ## Update a product by ID
-PUT http://localhost:3000/products/8a033943-9dda-4757-96f1-4c87c5ce5be0
+PUT http://localhost:3000/products/3f35f689-cd27-48d4-9faf-57e8b6882a46
 Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
@@ -47,7 +47,7 @@ Content-Type: application/json
 ###
 
 ## Delete a product by ID
-DELETE http://localhost:3000/products/8a033943-9dda-4757-96f1-4c87c5ce5be0
+DELETE http://localhost:3000/products/3f35f689-cd27-48d4-9faf-57e8b6882a46
 Authorization: Basic: <email>:<password>
 
 

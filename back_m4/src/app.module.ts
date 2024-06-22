@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from './config/typeorm';
 import { CategoryModule } from './modules/categories/categories.module';
 import { OrderModule } from './modules/orders/order.module';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { OrderModule } from './modules/orders/order.module';
     ProductsModule,
     CategoryModule,
     AuthModule,
-    OrderModule
+    OrderModule,
+    FileModule
   ],
   controllers: [],
   providers: [],

@@ -1,16 +1,17 @@
 # methods/order.http
 
 POST http://localhost:3000/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjExY2RlZC1jZjFlLTQxMjktOGJjNi02NTQ0ODhkYzUwNzkiLCJpZCI6IjViMTFjZGVkLWNmMWUtNDEyOS04YmM2LTY1NDQ4OGRjNTA3OSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwiaWF0IjoxNzE5MTA5MjUyLCJleHAiOjE3MTk5NzMyNTJ9.YmXS2MRz_dcHFIOPRSWbXhsAdMAqg5H2oHafLiZLg_c
 Content-Type: application/json
 
 {
-  "userId": "27a5a5aa-e487-44e1-9e88-da9da451631f",
+  "userId": "275b6c86-504a-4ce1-8b1b-3a8616f1fe1f",
   "products": [
     {
-      "id": "a0438d11-07a3-4de9-ae5e-2b995e732dcd"
+      "id": "359be4ce-4470-4f0d-b5a7-d15928e65330"
     },
     {
-      "id": "873533b3-92bf-4c03-a24a-77c6ef1fe1fb"
+      "id": "1bae29ef-e8c9-473c-8647-052b5fc2eebf"
     }
   ]
 }
@@ -19,4 +20,5 @@ Content-Type: application/json
 GET http://localhost:3000/orders
 
 ###
-GET http://localhost:3000/orders/868d8216-ffc8-428c-8247-d16d7b0cd379
+GET http://localhost:3000/orders/3b4d0ae2-26c3-4ed4-95bc-3a0816a929a9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjExY2RlZC1jZjFlLTQxMjktOGJjNi02NTQ0ODhkYzUwNzkiLCJpZCI6IjViMTFjZGVkLWNmMWUtNDEyOS04YmM2LTY1NDQ4OGRjNTA3OSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwiaWF0IjoxNzE5MTA5MjUyLCJleHAiOjE3MTk5NzMyNTJ9.YmXS2MRz_dcHFIOPRSWbXhsAdMAqg5H2oHafLiZLg_c

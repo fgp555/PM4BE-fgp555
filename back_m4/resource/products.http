@@ -27,13 +27,13 @@ GET http://localhost:3000/products
 ###
 
 ## Get a specific product by ID
-GET http://localhost:3000/products/3f35f689-cd27-48d4-9faf-57e8b6882a46
+GET http://localhost:3000/products/359be4ce-4470-4f0d-b5a7-d15928e65330
 
 ###
 
 ## Update a product by ID
-PUT http://localhost:3000/products/3f35f689-cd27-48d4-9faf-57e8b6882a46
-Authorization: Basic: <email>:<password>
+PUT http://localhost:3000/products/359be4ce-4470-4f0d-b5a7-d15928e65330
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjExY2RlZC1jZjFlLTQxMjktOGJjNi02NTQ0ODhkYzUwNzkiLCJpZCI6IjViMTFjZGVkLWNmMWUtNDEyOS04YmM2LTY1NDQ4OGRjNTA3OSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwiaWF0IjoxNzE5MTA5MjUyLCJleHAiOjE3MTk5NzMyNTJ9.YmXS2MRz_dcHFIOPRSWbXhsAdMAqg5H2oHafLiZLg_c
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 ###
 
 ## Delete a product by ID
-DELETE http://localhost:3000/products/3f35f689-cd27-48d4-9faf-57e8b6882a46
+DELETE http://localhost:3000/products/359be4ce-4470-4f0d-b5a7-d15928e65330
 Authorization: Basic: <email>:<password>
 
 

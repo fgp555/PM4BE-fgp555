@@ -8,6 +8,7 @@ import {
   ParseUUIDPipe,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import { FileService } from './file.service';
 import { CloudinaryService } from './cloudinary.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MinSizeValidatorPipe } from './pipes/min-size-validator.pipe';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('files')
 export class FileController {
@@ -29,6 +31,7 @@ export class FileController {
   }
 
   @Post('uploadImage/:id')
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('image'))
   // @UsePipes(MinSizeValidatorPipe)
   // @UseGuards(AuthGuard)
@@ -50,7 +53,7 @@ export class FileController {
     )
     file: Express.Multer.File,
   ) {
-    // return file
+    return file
     const cloudinaryResult = await this.cloudinaryService.uploadImage(file);
     const { url } = cloudinaryResult;
 

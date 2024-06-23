@@ -35,6 +35,10 @@ export class UsersDbService {
     return user;
   }
 
+  findUserByEmail(email: string) {
+    return this.usersRepository.findOne({ where: { email } });
+  }
+
   async updateUser(id: string, userData: Partial<any>): Promise<User | null> {
     const userFound = await this.usersRepository.findOne({ where: { id } });
     if (!userFound) {

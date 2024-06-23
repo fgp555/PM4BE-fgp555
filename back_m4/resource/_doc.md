@@ -26,4 +26,17 @@ npm run start:dev
 # Lecture 6
 npm i class-validator class-transformer
 
+#L7
+npm i -D @types/multer
+# npm install multer @nestjs/platform-express
+
+npm i cloudinary buffer-to-stream
+
+# L8
+npm install bcrypt
+npm install @nestjs/swagger
+npm install --save @nestjs/jwt
+
+https://jwt.io/
+
 ```

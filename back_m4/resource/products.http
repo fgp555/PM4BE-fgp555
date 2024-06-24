@@ -27,13 +27,13 @@ GET http://localhost:3000/products
 ###
 
 ## Get a specific product by ID
-GET http://localhost:3000/products/359be4ce-4470-4f0d-b5a7-d15928e65330
+GET http://localhost:3000/products/ed323511-e5a6-4954-b5a5-bc34623922e4
 
 ###
 
 ## Update a product by ID
-PUT http://localhost:3000/products/359be4ce-4470-4f0d-b5a7-d15928e65330
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjExY2RlZC1jZjFlLTQxMjktOGJjNi02NTQ0ODhkYzUwNzkiLCJpZCI6IjViMTFjZGVkLWNmMWUtNDEyOS04YmM2LTY1NDQ4OGRjNTA3OSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwiaWF0IjoxNzE5MTA5MjUyLCJleHAiOjE3MTk5NzMyNTJ9.YmXS2MRz_dcHFIOPRSWbXhsAdMAqg5H2oHafLiZLg_c
+PUT http://localhost:3000/products/ed323511-e5a6-4954-b5a5-bc34623922e4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGJjNmI4Yy02YjZiLTQzZjktYTc4MC0yM2JhZjlkZDM0M2YiLCJpZCI6IjQwYmM2YjhjLTZiNmItNDNmOS1hNzgwLTIzYmFmOWRkMzQzZiIsImVtYWlsIjoidXNlcjJAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzE5MjQ3MTYxLCJleHAiOjE3MjAxMTExNjF9.s_bceioGmi0ctTy0c6wOzaVdyBHEWEPFt7TapDSkwYM
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 ###
 
 ## Delete a product by ID
-DELETE http://localhost:3000/products/359be4ce-4470-4f0d-b5a7-d15928e65330
+DELETE http://localhost:3000/products/ed323511-e5a6-4954-b5a5-bc34623922e4
 Authorization: Basic: <email>:<password>
 
 

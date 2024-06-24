@@ -26,6 +26,9 @@ import { Repository } from 'typeorm';
 import { Category } from '../categories/categories.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { CategoryService } from '../categories/categories.service';
+import { Roles } from '../users/decorator/roles.decorator';
+import { RolesEnum } from '../users/enum/roles.enum';
+import { RolesGuard } from '../users/roles.guard';
 
 @Controller('products')
 export class ProductController {
@@ -94,7 +97,8 @@ export class ProductController {
   }
 
   @Put(':id')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   async updateProduct(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() product: Partial<IProduct>,

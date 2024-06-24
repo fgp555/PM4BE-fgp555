@@ -31,6 +31,9 @@ import { User as UserEntity } from './user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { Roles } from './decorator/roles.decorator';
+import { RolesEnum } from './enum/roles.enum';
+import { RolesGuard } from './roles.guard';
 
 @Controller('users')
 export class UserController {
@@ -40,7 +43,8 @@ export class UserController {
   ) {}
 
   @Get()
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   // @UsePipes(new ValidationPipe({ transform: true }))
   async getUsers(
     @Query('page') page: number = 1,
@@ -116,7 +120,10 @@ export class UserController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  async deleteUser(@Param('id', ParseUUIDPipe) id: string, @Res() res: Response) {
+  async deleteUser(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Res() res: Response,
+  ) {
     try {
       // const deletedId = await this.userService.deleteUser(Number(id));
       const deletedId = await this.usersDbService.deleteUser(id);

@@ -19,7 +19,7 @@ const config = {
   // synchronize: false,
   synchronize: true, // Enable schema synchronization
   // dropSchema: true, // Drop schema on every application start
-  logging: true,
+  // logging: true,
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.js,.ts}'],
 };

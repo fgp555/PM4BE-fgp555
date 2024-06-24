@@ -39,4 +39,13 @@ npm install --save @nestjs/jwt
 
 https://jwt.io/
 
+
+#L9
+npm install express-openid-connect
+
+
+https://manage.auth0.com/dashboard/us/dev-md7dr4y44z6j0oe5/applications/wLlG1KN2upncpRljIAnbwLIQf1WTMcF8/quickstart/express/steps/2
+http://localhost:3000/users/auth0/protected
+http://localhost:3000/login
+http://localhost:3000/logout
 ```

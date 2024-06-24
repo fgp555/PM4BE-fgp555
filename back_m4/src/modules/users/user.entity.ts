@@ -14,9 +14,6 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  // @PrimaryGeneratedColumn()
-  // id: number;
-
   @Column({ length: 50 })
   name: string;
 
@@ -42,9 +39,6 @@ export class User {
   @OneToMany(() => Order, (order) => order.user_id)
   orders: Order[];
 
-  // @CreateDateColumn()
-  // createdAt: Date;
-
-  // @UpdateDateColumn()
-  // updatedAt: Date;
+  @Column({ default: false })
+  isAdmin: boolean;
 }

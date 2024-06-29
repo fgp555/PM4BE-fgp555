@@ -114,7 +114,6 @@ export class ProductController {
     @Param('id', ParseUUIDPipe) id: string,
     @Res() res: Response,
   ) {
-    console.log('109 id', id);
     const deletedId = await this.productsDbService.deleteProduct(id);
     res.status(HttpStatus.OK).json({ id: deletedId });
   }

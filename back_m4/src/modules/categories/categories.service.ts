@@ -15,13 +15,6 @@ export class CategoryService {
     return this.categoryRepository.find();
   }
 
-  //   async findOne(id: number): Promise<Category> {
-  //     return this.categoryRepository.findOneBy({ id });
-  //   }
-
-  // async addCategories(category: Category): Promise<Category> {
-  //   return this.categoryRepository.save(category);
-  // }
   async addCategories(category: Category): Promise<Category> {
     // Check if the category already exists
     const existingCategory = await this.categoryRepository.findOne({

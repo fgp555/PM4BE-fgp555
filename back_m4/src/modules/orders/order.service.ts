@@ -119,7 +119,6 @@ export class OrderService {
       relations: ['product_id'],
     });
 
-    console.log('orderDetails', orderDetails);
 
     // Map the order details to include the product information
     // const detailedOrder = {

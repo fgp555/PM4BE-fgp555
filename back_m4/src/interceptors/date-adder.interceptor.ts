@@ -13,7 +13,6 @@ export class DateAdderInterceptor implements NestInterceptor {
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
     const now = new Date();
-    // console.log(now);
     const format = now.toLocaleDateString('es-AR', {
       year: 'numeric',
       month: '2-digit',

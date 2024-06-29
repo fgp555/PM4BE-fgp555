@@ -29,7 +29,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { UsersDbService } from './usersDb.service';
 import { User as UserEntity } from './user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { DateAdderInterceptor } from 'src/interceptors/date-adder.interceptor';
+import { DateAdderInterceptor } from '../../interceptors/date-adder.interceptor';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { Roles } from './decorator/roles.decorator';
 import { RolesEnum } from './enum/roles.enum';
@@ -90,7 +90,6 @@ export class UserController {
     @Res() res: Response,
     @Req() req: Request & { now: string },
   ) {
-    console.log('76 req.now', req.now);
     try {
       const savedUser = await this.usersDbService.saveUser(user);
       res.status(HttpStatus.CREATED).json(savedUser);

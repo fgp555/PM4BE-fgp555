@@ -14,10 +14,13 @@ import { RolesEnum } from '../users/enum/roles.enum';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersRepository: UsersRepository,
     private readonly usersDbService: UsersDbService,
     private readonly jwtService: JwtService,
   ) {}
+
+  async helloAuth() {
+    return 'hello Auth Service';
+  }
 
   async signUp(bodyObject: SignUpDto) {
     const foundUser = await this.usersDbService.findUserByEmail(
@@ -48,7 +51,6 @@ export class AuthService {
     }
 
     const isPasswordValid = await bcrypt.compare(password, foundUser.password);
-    console.log("isPasswordValid", isPasswordValid)
     if (!isPasswordValid) {
       throw new BadRequestException('Wrong password');
     }

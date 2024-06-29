@@ -12,13 +12,16 @@ import { OrderDetail } from '../order-details/order-details.entity';
 
 @Injectable()
 export class ProductsDbService {
-
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
     // @InjectRepository(OrderDetail)
     // private readonly orderDetailRepository: Repository<OrderDetail>,
   ) {}
+
+  async helloProduct() {
+    return 'hello Product Service';
+  }
 
   async createProduct(product: any /* Product */) /* : Promise<Product> */ {
     // return product
@@ -47,15 +50,14 @@ export class ProductsDbService {
     };
   }
 
- async findByName //   if (relatedOrderDetails.length > 0) {
-    (name: string) {
+  async findByName(name: string) {
+    //   if (relatedOrderDetails.length > 0) {
     // const product = await this.productsRepository.findOne({ where: { name } });
     // if (!product) {
     //   throw new NotFoundException('Product not found');
     // }
     // return product;
     return this.productsRepository.findOne({ where: { name } });
-
   }
 
   async getProductById(id: string) /* : Promise<IProduct> */ {

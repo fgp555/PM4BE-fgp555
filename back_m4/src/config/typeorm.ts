@@ -5,7 +5,6 @@ import { config as dotenvConfig } from 'dotenv';
 import { registerAs } from '@nestjs/config';
 
 dotenvConfig({ path: '.env.development' });
-console.log(process.env.DB_DATABASE);
 
 const config = {
   type: 'postgres',
@@ -17,7 +16,7 @@ const config = {
   autoLoadEntities: true,
   // entities: [User, Todo],
   // synchronize: false,
-  synchronize: true, // Enable schema synchronization
+  // synchronize: true, // Enable schema synchronization
   // dropSchema: true, // Drop schema on every application start
   // logging: true,
   entities: ['dist/**/*.entity{.ts,.js}'],

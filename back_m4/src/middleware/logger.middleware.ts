@@ -8,7 +8,7 @@ export class LoggerMiddleware implements NestMiddleware {
     const method = req.method;
     const url = req.url;
 
-    console.log(`LoggerMiddleware: ${now} ${method} ${url}`);
+    console.info(`LoggerMiddleware: ${now} ${method} ${url}`);
 
     next();
   }
@@ -19,6 +19,6 @@ export function loggerGlobal(req: Request, res: Response, next: NextFunction) {
   const method = req.method;
   const url = req.url;
 
-  console.log(`loggerGlobal: ${now} ${method} ${url}`);
+  console.info(`loggerGlobal: ${now} ${method} ${url}`);
   next();
 }

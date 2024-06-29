@@ -28,8 +28,6 @@ npm i class-validator class-transformer
 
 #L7
 npm i -D @types/multer
-# npm install multer @nestjs/platform-express
-
 npm i cloudinary buffer-to-stream
 
 # L8
@@ -48,4 +46,15 @@ https://manage.auth0.com/dashboard/us/dev-md7dr4y44z6j0oe5/applications/wLlG1KN2
 http://localhost:3000/users/auth0/protected
 http://localhost:3000/login
 http://localhost:3000/logout
-```
+
+
+
+#10
+ npm run test
+ npm run test:watch
+  npm run test:e2e
+  npm run test:e2ewatch
+# "test:e2ewatch": "jest --config ./test/jest-e2e.json --watch",
+
+
+

@@ -5,7 +5,7 @@ import { UsersRepository } from './users.repository';
 import { UsersDbService } from './usersDb.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { LoggerMiddleware } from 'src/middleware/logger.middleware';
+import { LoggerMiddleware } from '../../middleware/logger.middleware';
 import { requiresAuth } from 'express-openid-connect';
 
 @Module({
@@ -15,6 +15,6 @@ import { requiresAuth } from 'express-openid-connect';
 })
 export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('users');
+    // consumer.apply(LoggerMiddleware).forRoutes('users');
   }
 }

@@ -19,6 +19,6 @@ Authorization: Basic: <email>:<password>
 Content-Type: application/json
 
 {
-  "email": "user2@gmail.com",
+  "email": "user1@gmail.com",
   "password": "P4ss123@"
 }

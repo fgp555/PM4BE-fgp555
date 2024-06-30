@@ -5,7 +5,7 @@ version: '3.8'
 
 services:
    nestapp:
-     build: ./
+     image: fgp555/homework-m4:latests
      ports:
        - "3000:3000"
      env_file:

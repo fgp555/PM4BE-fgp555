@@ -6,6 +6,8 @@ import { registerAs } from '@nestjs/config';
 
 dotenvConfig({ path: '.env.development' });
 
+console.log("process.env.DB_HOST", process.env.DB_HOST)
+
 const config = {
   type: 'postgres',
   database: process.env.DB_DATABASE,

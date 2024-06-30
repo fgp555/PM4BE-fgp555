@@ -50,6 +50,7 @@ docker run -p 3000:3000 --network nestnetwork m4_hw_back
 
 docker run --name postgresdb -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=m4_hw_back --network nestnetwork -v pgdata:/var/lib/postgresql/data -d postgres
 
+docker ps
 # docker-compose.yml
 docker compose up
 # en segundo plano

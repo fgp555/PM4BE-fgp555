@@ -56,5 +56,6 @@ http://localhost:3000/logout
   npm run test:e2ewatch
 # "test:e2ewatch": "jest --config ./test/jest-e2e.json --watch",
 
-
+#11
+npm install --save @nestjs/swagger
 

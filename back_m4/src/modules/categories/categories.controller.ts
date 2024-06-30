@@ -10,7 +10,9 @@ import {
 import { CategoryService } from './categories.service';
 import { CategorySeederService } from './category.seed';
 import { Category } from './categories.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Categories')
 @Controller('categories')
 export class CategoriesController {
   constructor(
@@ -31,11 +33,6 @@ export class CategoriesController {
   async getCategories() {
     return await this.categoryService.getCategories();
   }
-
-  //   @Post()
-  //   async addCategories(@Body() category: any) {
-  //     return await this.categoryService.addCategories(category);
-  //   }
 
   @Post()
   async addCategories(@Body() category: any) {

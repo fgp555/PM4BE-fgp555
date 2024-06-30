@@ -17,7 +17,9 @@ import { CloudinaryService } from './cloudinary.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MinSizeValidatorPipe } from './pipes/min-size-validator.pipe';
 import { AuthGuard } from '../auth/auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Files')
 @Controller('files')
 export class FileController {
   constructor(
@@ -30,6 +32,7 @@ export class FileController {
     return this.fileService.getFileService();
   }
 
+  @ApiBearerAuth()
   @Post('uploadImage/:id')
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('image'))

@@ -1,20 +1,6 @@
 
 # ==================== USERS ====================
 
-## Create a new user
-# POST http://localhost:3000/users
-# Content-Type: application/json
-
-# {
-#   "email": "newuser@gmail.com",
-#   "name": "New User",
-#   "password": "P4ss123@",
-#   "address": "new address",
-#   "phone": "987654321",
-#   "country": "New Country",
-#   "city": "New City"
-# }
-
 ### Get all users (with pagination) - Requires Authorization
 GET http://localhost:3000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MGJjNmI4Yy02YjZiLTQzZjktYTc4MC0yM2JhZjlkZDM0M2YiLCJpZCI6IjQwYmM2YjhjLTZiNmItNDNmOS1hNzgwLTIzYmFmOWRkMzQzZiIsImVtYWlsIjoidXNlcjJAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzE5MjQ0OTc3LCJleHAiOjE3MjAxMDg5Nzd9.JzUDt5bQDxFskBpi3XS_BGeuTvCI2pxVrnUOjwDhstg

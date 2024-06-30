@@ -16,8 +16,8 @@ const config = {
   autoLoadEntities: true,
   // entities: [User, Todo],
   // synchronize: false,
-  // synchronize: true, // Enable schema synchronization
-  // dropSchema: true, // Drop schema on every application start
+  synchronize: true, // Enable schema synchronization
+  dropSchema: true, // Drop schema on every application start
   // logging: true,
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.js,.ts}'],

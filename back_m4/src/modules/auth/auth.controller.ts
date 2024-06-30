@@ -11,7 +11,9 @@ import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { SignInDto } from './dtos/signin.dto';
 import { SignUpDto } from './dtos/signup.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -38,29 +40,8 @@ export class AuthController {
   }
 
   @Post('signin')
-  async signIn(
-    // @Body('email') email: string,
-    // @Body('password') password: string,
-    @Body() login: SignInDto,
-    // @Res() res: Response,
-  ) {
+  async signIn(@Body() login: SignInDto) {
     const { email, password } = login;
     return await this.authService.signIn(email, password);
-    // if (!email || !password) {
-    //   res
-    //     .status(HttpStatus.BAD_REQUEST)
-    //     .json({ message: 'Email and password are required' });
-    //   return;
-    // }
-    // try {
-    //   const result = await this.authService.signIn(email, password);
-    //   res
-    //     .status(HttpStatus.OK)
-    //     .json({ message: 'Successfully signed in', result });
-    // } catch (error) {
-    //   res
-    //     .status(HttpStatus.UNAUTHORIZED)
-    //     .json({ message: 'Email or password incorrect' });
-    // }
   }
 }

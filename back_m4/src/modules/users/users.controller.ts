@@ -34,7 +34,9 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { Roles } from './decorator/roles.decorator';
 import { RolesEnum } from './enum/roles.enum';
 import { RolesGuard } from './roles.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
 export class UserController {
   constructor(
@@ -42,6 +44,7 @@ export class UserController {
     private readonly usersDbService: UsersDbService,
   ) {}
 
+  @ApiBearerAuth()
   @Get()
   @Roles(RolesEnum.Admin)
   @UseGuards(AuthGuard, RolesGuard)
@@ -68,6 +71,7 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
   @Get(':id')
   @UseGuards(AuthGuard)
   async getUser(@Param('id', ParseUUIDPipe) id: string, @Res() res: Response) {
@@ -98,6 +102,7 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
   @Put(':id')
   @UseGuards(AuthGuard)
   async updateUser(
@@ -117,6 +122,7 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
   @UseGuards(AuthGuard)
   async deleteUser(

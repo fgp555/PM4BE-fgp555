@@ -29,7 +29,9 @@ import { CategoryService } from '../categories/categories.service';
 import { Roles } from '../users/decorator/roles.decorator';
 import { RolesEnum } from '../users/enum/roles.enum';
 import { RolesGuard } from '../users/roles.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductController {
   constructor(
@@ -72,6 +74,7 @@ export class ProductController {
     res.status(HttpStatus.OK).json(product);
   }
 
+  @ApiBearerAuth()
   @Post()
   @UseGuards(AuthGuard)
   async createProduct(@Body() product: CreateProductDto, @Res() res: Response) {
@@ -96,6 +99,7 @@ export class ProductController {
     return res.status(HttpStatus.CREATED).json(newProduct);
   }
 
+  @ApiBearerAuth()
   @Put(':id')
   @Roles(RolesEnum.Admin)
   @UseGuards(AuthGuard, RolesGuard)
@@ -108,6 +112,7 @@ export class ProductController {
     res.status(HttpStatus.OK).json({ id: updatedId });
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
   @UseGuards(AuthGuard)
   async deleteProduct(

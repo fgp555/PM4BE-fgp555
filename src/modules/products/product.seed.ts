@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './products.entity';
 import { Category } from '../categories/categories.entity';
+import { productSeeder } from 'src/pre-load/productSeeder';
 
 @Injectable()
 export class ProductSeederService {
@@ -15,27 +16,14 @@ export class ProductSeederService {
   ) {}
 
   async seed() {
-    const products = [
-      {
-        name: 'Iphone 15',
-        description: 'The best smartphone in the world',
-        price: 150,
-        stock: 12,
-        category: 'smartphone',
-      },
-      {
-        name: 'Samsung Galaxy S23',
-        description: 'The best smartphone in the world',
-        price: 100,
-        stock: 12,
-        category: 'smartphone',
-      },
-    ];
-
-    for (const product of products) {
-      const category = await this.categoryRepository.findOneBy({ name: product.category });
+    for (const product of productSeeder) {
+      const category = await this.categoryRepository.findOneBy({
+        name: product.category,
+      });
       if (category) {
-        const exists = await this.productRepository.findOneBy({ name: product.name });
+        const exists = await this.productRepository.findOneBy({
+          name: product.name,
+        });
         if (!exists) {
           await this.productRepository.save({
             ...product,
@@ -44,7 +32,5 @@ export class ProductSeederService {
         }
       }
     }
-
-    
   }
 }

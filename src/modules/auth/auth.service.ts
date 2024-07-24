@@ -1,6 +1,7 @@
 // src/auth/auth.service.ts
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -18,16 +19,13 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async helloAuth() {
-    return 'hello Auth Service';
-  }
-
+  // ====================
   async signUp(bodyObject: SignUpDto) {
     const foundUser = await this.usersDbService.findUserByEmail(
       bodyObject.email,
     );
     if (foundUser) {
-      throw new Error('User already exists');
+      throw new ConflictException('User already exists');
     }
 
     const hashedPassword = await bcrypt.hash(bodyObject.password, 10);
@@ -43,7 +41,7 @@ export class AuthService {
     return { success: 'User created successfully', result: userRest };
   }
 
-  // ==========  ==========
+  // ====================
   async signIn(email: string, password: string) {
     const foundUser = await this.usersDbService.findUserByEmail(email);
     if (!foundUser) {
@@ -60,11 +58,11 @@ export class AuthService {
       id: foundUser.id,
       email: foundUser.email,
       roles: [foundUser.isAdmin ? RolesEnum.Admin : RolesEnum.User],
-
-      //
     };
     const token = this.jwtService.sign(userPayload);
 
-    return { success: 'User logged in successfully', token };
+    const { password: _, ...user } = foundUser;
+
+    return { success: 'User logged in successfully', user, token };
   }
 }

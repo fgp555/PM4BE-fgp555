@@ -18,36 +18,37 @@ import {
   Req,
   HttpException,
   ParseUUIDPipe,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
-import { UserService } from './users.service';
 import { Response } from 'express';
-import { IUser } from './users.interfaces';
-import { UserWithoutPassword } from './user.types';
 import { AuthGuard } from '../auth/auth.guard';
 import { UsersDbService } from './usersDb.service';
-import { User as UserEntity } from './user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { DateAdderInterceptor } from '../../interceptors/date-adder.interceptor';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { Roles } from './decorator/roles.decorator';
 import { RolesEnum } from './enum/roles.enum';
 import { RolesGuard } from './roles.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Users')
 @Controller('users')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly usersDbService: UsersDbService,
-  ) {}
+  constructor(private readonly usersDbService: UsersDbService) {}
 
-  @ApiBearerAuth()
+  // Obtener todos los usuarios
   @Get()
-  @Roles(RolesEnum.Admin)
-  @UseGuards(AuthGuard, RolesGuard)
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of elements per page',
+    schema: { default: 5 },
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'Page number',
+    schema: { default: 1 },
+  })
   // @UsePipes(new ValidationPipe({ transform: true }))
   async getUsers(
     @Query('page') page: number = 1,
@@ -71,12 +72,13 @@ export class UserController {
     }
   }
 
-  @ApiBearerAuth()
   @Get(':id')
+  @ApiBearerAuth()
+  @Roles(RolesEnum.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @UseGuards(AuthGuard)
   async getUser(@Param('id', ParseUUIDPipe) id: string, @Res() res: Response) {
     try {
-      // const user = await this.userService.getUserById(Number(id));
       const user = await this.usersDbService.getUserById(id);
       if (!user) {
         throw new NotFoundException('User not found');
@@ -87,23 +89,10 @@ export class UserController {
     }
   }
 
-  @Post()
-  @UseInterceptors(DateAdderInterceptor)
-  async createUser(
-    @Body() user: CreateUserDto,
-    @Res() res: Response,
-    @Req() req: Request & { now: string },
-  ) {
-    try {
-      const savedUser = await this.usersDbService.saveUser(user);
-      res.status(HttpStatus.CREATED).json(savedUser);
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
-  }
-
-  @ApiBearerAuth()
   @Put(':id')
+  @ApiBearerAuth()
+  @Roles(RolesEnum.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @UseGuards(AuthGuard)
   async updateUser(
     @Param('id', ParseUUIDPipe) id: string,
@@ -111,7 +100,6 @@ export class UserController {
     @Res() res: Response,
   ) {
     try {
-      // const updatedId = await this.userService.updateUser(Number(id), user);
       const updatedId = await this.usersDbService.updateUser(id, user);
       if (updatedId === null) {
         throw new NotFoundException('User not found');
@@ -122,15 +110,16 @@ export class UserController {
     }
   }
 
-  @ApiBearerAuth()
   @Delete(':id')
+  @ApiBearerAuth()
+  @Roles(RolesEnum.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @UseGuards(AuthGuard)
   async deleteUser(
     @Param('id', ParseUUIDPipe) id: string,
     @Res() res: Response,
   ) {
     try {
-      // const deletedId = await this.userService.deleteUser(Number(id));
       const deletedId = await this.usersDbService.deleteUser(id);
       if (deletedId === null) {
         throw new NotFoundException('User not found');

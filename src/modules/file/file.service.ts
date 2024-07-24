@@ -10,10 +10,6 @@ export class FileService {
     private readonly productsRepository: Repository<Product>,
   ) {}
 
-  getFileService() {
-    return 'getFileService';
-  }
-
   async uploadProductImage(productId: string, url: string) {
     const foundProduct = await this.productsRepository.findOne({
       where: { id: productId },

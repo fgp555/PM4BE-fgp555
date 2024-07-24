@@ -47,6 +47,8 @@ async function bootstrap() {
 
   const productSeeder = app.get(ProductSeederService);
   await productSeeder.seed();
+  
+  app.enableCors();
 
   await app.listen(3000);
 }

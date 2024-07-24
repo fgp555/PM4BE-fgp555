@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { CategoryService } from './categories.service';
 import { CategorySeederService } from './category.seed';
-import { Category } from './categories.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateCategoryDTO } from './dtos/category.entity';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -20,6 +20,7 @@ export class CategoriesController {
     private readonly categorySeederService: CategorySeederService,
   ) {}
 
+  // ========================================
   @Post('seeder')
   @HttpCode(HttpStatus.CREATED)
   async seeder() {
@@ -29,13 +30,15 @@ export class CategoriesController {
     };
   }
 
+  // ========================================
   @Get()
   async getCategories() {
     return await this.categoryService.getCategories();
   }
 
+  // ========================================
   @Post()
-  async addCategories(@Body() category: any) {
+  async addCategories(@Body() category: CreateCategoryDTO) {
     try {
       return await this.categoryService.addCategories(category);
     } catch (error) {

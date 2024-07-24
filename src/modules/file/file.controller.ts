@@ -1,7 +1,6 @@
 import {
   Controller,
   FileTypeValidator,
-  Get,
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
@@ -17,7 +16,14 @@ import { CloudinaryService } from './cloudinary.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MinSizeValidatorPipe } from './pipes/min-size-validator.pipe';
 import { AuthGuard } from '../auth/auth.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiExcludeEndpoint,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Files')
 @Controller('files')
@@ -27,17 +33,29 @@ export class FileController {
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  @Get()
-  getFileController() {
-    return this.fileService.getFileService();
-  }
+  // ========== UPLOAD IMAGE ==========
 
   @ApiBearerAuth()
   @Post('uploadImage/:id')
   @UseGuards(AuthGuard)
-  @UseInterceptors(FileInterceptor('image'))
-  // @UsePipes(MinSizeValidatorPipe)
-  // @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  @UsePipes(MinSizeValidatorPipe)
+  // input file...
+  @ApiOperation({ summary: 'Upload a file' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'File to upload',
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  // input file.
   async uploadImageController(
     @Param('id', ParseUUIDPipe) id: string,
     @UploadedFile(
@@ -56,11 +74,20 @@ export class FileController {
     )
     file: Express.Multer.File,
   ) {
-    return file
     const cloudinaryResult = await this.cloudinaryService.uploadImage(file);
     const { url } = cloudinaryResult;
 
     const updateProduct = await this.fileService.uploadProductImage(id, url);
     return updateProduct;
+  }
+
+  @ApiExcludeEndpoint()
+  @Post('test')
+  @UseInterceptors(FileInterceptor('image'))
+  async test_uploadImageController(
+    @UploadedFile(new ParseFilePipe())
+    file: Express.Multer.File,
+  ) {
+    return file;
   }
 }

@@ -6,20 +6,18 @@ import { registerAs } from '@nestjs/config';
 
 dotenvConfig({ path: '.env.development' });
 
-console.log("process.env.DB_HOST", process.env.DB_HOST)
+console.info('process.env.DB_NAME', process.env.DB_NAME);
 
 const config = {
   type: 'postgres',
-  database: process.env.DB_DATABASE,
+  database: process.env.DB_NAME,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT as unknown as number,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   autoLoadEntities: true,
-  // entities: [User, Todo],
-  // synchronize: false,
-  synchronize: true, // Enable schema synchronization
-  dropSchema: true, // Drop schema on every application start
+  // synchronize: true, // Enable schema synchronization
+  // dropSchema: true, // Drop schema on every application start
   // logging: true,
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.js,.ts}'],

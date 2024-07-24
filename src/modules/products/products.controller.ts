@@ -29,7 +29,8 @@ import { CategoryService } from '../categories/categories.service';
 import { Roles } from '../users/decorator/roles.decorator';
 import { RolesEnum } from '../users/enum/roles.enum';
 import { RolesGuard } from '../users/roles.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @ApiTags('Products')
 @Controller('products')
@@ -56,6 +57,18 @@ export class ProductController {
   }
 
   @Get()
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of elements per page',
+    schema: { default: 20 },
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'Page number',
+    schema: { default: 1 },
+  })
   async getProducts(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 5,
@@ -74,8 +87,8 @@ export class ProductController {
     res.status(HttpStatus.OK).json(product);
   }
 
-  @ApiBearerAuth()
   @Post()
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async createProduct(@Body() product: CreateProductDto, @Res() res: Response) {
     const category = await this.categoryService.findByName(product.category);
@@ -105,7 +118,7 @@ export class ProductController {
   @UseGuards(AuthGuard, RolesGuard)
   async updateProduct(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() product: Partial<IProduct>,
+    @Body() product: UpdateProductDto,
     @Res() res: Response,
   ) {
     const updatedId = await this.productsDbService.updateProduct(id, product);

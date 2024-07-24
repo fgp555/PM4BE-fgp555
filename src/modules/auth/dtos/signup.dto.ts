@@ -18,7 +18,7 @@ export class SignUpDto {
   @MaxLength(80, { message: 'El nombre no debe superar los 80 caracteres' })
   @ApiProperty({
     description: 'User name description',
-    example: 'New User 1',
+    example: 'User 1',
   })
   name: string;
 
@@ -29,7 +29,7 @@ export class SignUpDto {
   @IsNotEmpty({ message: 'El correo electrónico es requerido' })
   @ApiProperty({
     description: 'User email description',
-    example: 'user1@gmail.com',
+    example: 'User123s@gmail.com',
   })
   email: string;
 
@@ -43,7 +43,7 @@ export class SignUpDto {
   })
   @ApiProperty({
     description: 'User password description',
-    example: 'P4ss123@',
+    example: 'User123s@',
   })
   password: string;
 
@@ -67,11 +67,11 @@ export class SignUpDto {
 
   @IsString()
   @IsNotEmpty({ message: 'El país es requerido' })
-  @MinLength(5, { message: 'El país debe tener al menos 5 caracteres' })
+  @MinLength(4, { message: 'El país debe tener al menos 5 caracteres' })
   @MaxLength(20, { message: 'El país no debe superar los 20 caracteres' })
   @ApiProperty({
     description: 'User country description',
-    example: 'Colombia',
+    example: 'Perú',
   })
   country: string;
   
@@ -81,7 +81,7 @@ export class SignUpDto {
   @MaxLength(20, { message: 'La ciudad no debe superar los 20 caracteres' })
   @ApiProperty({
     description: 'User city description',
-    example: 'Bogotá',
+    example: 'Juliaca',
   })
   city: string;
 }

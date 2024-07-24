@@ -21,12 +21,12 @@ import { JwtModule } from '@nestjs/jwt';
       useFactory: (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
-    UsersModule,
-    ProductsModule,
-    CategoryModule,
     AuthModule,
-    OrderModule,
+    UsersModule,
+    CategoryModule,
+    ProductsModule,
     FileModule,
+    OrderModule,
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '10d' },

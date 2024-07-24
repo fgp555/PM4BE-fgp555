@@ -24,8 +24,8 @@ export class User {
   @Column()
   password: string;
 
-  @Column('int')
-  phone: number;
+  @Column()
+  phone: string;
 
   @Column({ length: 50, nullable: true })
   country: string;
@@ -39,6 +39,6 @@ export class User {
   @OneToMany(() => Order, (order) => order.user_id)
   orders: Order[];
 
-  @Column({ default: false })
+  @Column({ default: true })
   isAdmin: boolean;
 }

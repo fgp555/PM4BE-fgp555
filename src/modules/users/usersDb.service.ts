@@ -12,7 +12,7 @@ export class UsersDbService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async saveUser(user: any) {
+  async saveUser(user: Partial<User>) {
     return await this.usersRepository.save(user);
   }
 

@@ -1,0 +1,80 @@
+# Definir variables locales
+@base_url = http://localhost:3000/
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzM4MGJlOS0xMmRhLTRkYWMtODhiOC0zNmFkZTVhZGQxZTAiLCJpZCI6IjI3MzgwYmU5LTEyZGEtNGRhYy04OGI4LTM2YWRlNWFkZDFlMCIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzIxNzk2Njc2LCJleHAiOjE3MjI2NjA2NzZ9.fAz381sJ44eh3-TdaFTwHcW0i1Qs0nWOfJpcY8yVBV4
+@user_id = 4ca18e77-f30c-4702-a90a-0e8cae90b6d1
+@product_id_1 = f6fbba5e-3f59-458d-b18a-e0d440f70998
+@product_id_2 = b64218eb-2e55-42d2-afca-1402b2d5a792
+
+@order_id = 007573fa-b295-467c-8be3-6781d7f9344f
+
+# ========== products ==========
+### seeder
+POST http://localhost:3000/products/seeder
+
+### Create a new product
+POST http://localhost:3000/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Iphone 14",
+  "description": "A new product",
+  "price": 50.50,
+  "stock": 10,
+  "category": "smartphone",
+  "imgUrl": "http://example.com/new-url.jpg"
+}
+
+
+### Get all products (with pagination)
+GET http://localhost:3000/products?page=1&limit=3
+
+### Get all products
+GET http://localhost:3000/products
+
+### Get a specific product by ID
+GET http://localhost:3000/products/{{product_id_1}}
+
+### Update a product by ID
+PUT http://localhost:3000/products/{{product_id_1}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Product 444",
+  "description": "Updated description",
+  "price": 600,
+  "stock": 2,
+  "category": "smartphone",
+  "imgUrl": "https://example.com/image.png"
+}
+
+### Delete a product by ID
+DELETE http://localhost:3000/products/{{product_id_1}}
+
+
+Authorization: Bearer {{token}}
+
+### ========== orders ==========
+POST http://localhost:3000/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "userId": "{{user_id}}",
+  "products": [
+    {
+      "id": "{{product_id_1}}"
+    },
+    {
+      "id": "{{product_id_2}}"
+    }
+  ]
+}
+
+###
+GET http://localhost:3000/orders
+
+###
+GET http://localhost:3000/orders/{{order_id}}
+Authorization: Bearer {{token}}

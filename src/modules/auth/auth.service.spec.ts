@@ -56,10 +56,4 @@ describe('AuthService', () => {
       expect(result).toBe('hello Auth Service');
     });
   });
-
-  // it('signUp() creates a new user with an encrypted password', async () => {
-  //   const user = await authService.signUp(mockUser);
-  //   expect(user).toBeDefined();
-  //   // expect(user.password).not.toEqual(mockUser.password);
-  // });
 });

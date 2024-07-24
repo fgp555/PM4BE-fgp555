@@ -1,10 +1,10 @@
 ### seeder
 POST http://localhost:3000/categories/seeder
 
-### get
-GET  http://localhost:3000/categories/
+### categories
+GET  http://localhost:3000/categories
 
-### Create
+### Create categories
 POST http://localhost:3000/categories
 Content-Type: application/json
 Authorization: Basic: <email>:<password>

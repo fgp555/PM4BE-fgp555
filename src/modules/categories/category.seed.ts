@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from './categories.entity';
+import { categoriesSeeder } from 'src/pre-load/categoriesSeeder';
 
 @Injectable()
 export class CategorySeederService {
@@ -12,18 +13,15 @@ export class CategorySeederService {
   ) {}
 
   async seed() {
-    const categories = [
-      { name: 'smartphone' },
-      { name: 'monitor' },
-      { name: 'keyboard' },
-      { name: 'mouse' },
-      // Agrega más categorías si es necesario
-    ];
-
-    for (const category of categories) {
-      const exists = await this.categoryRepository.findOneBy({ name: category.name });
+    for (const category of categoriesSeeder) {
+      const exists = await this.categoryRepository.findOneBy({
+        name: category.name,
+      });
       if (!exists) {
         await this.categoryRepository.save(category);
+        console.info(`Category ${category.name} created`);
+      } else {
+        console.info(`Category ${category.name} already exists`);
       }
     }
   }

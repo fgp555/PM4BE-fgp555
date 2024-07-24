@@ -8,6 +8,7 @@ import {
   MaxLength,
   Matches,
   IsNumberString,
+  IsStrongPassword,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -26,11 +27,12 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty({ message: 'La contraseña es requerida' })
-  @MinLength(8, { message: 'La contraseña debe tener al menos 8 caracteres' })
-  @MaxLength(15, { message: 'La contraseña no debe superar los 15 caracteres' })
-  @Matches(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/, {
-    message:
-      'La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y uno de los siguientes caracteres especiales: !@#$%^&*',
+  @IsStrongPassword({
+    minLowercase: 1,
+    minUppercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+    minLength: 6,
   })
   password: string;
 
@@ -46,7 +48,7 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty({ message: 'El país es requerido' })
-  @MinLength(5, { message: 'El país debe tener al menos 5 caracteres' })
+  @MinLength(4, { message: 'El país debe tener al menos 4 caracteres' })
   @MaxLength(20, { message: 'El país no debe superar los 20 caracteres' })
   country: string;
 

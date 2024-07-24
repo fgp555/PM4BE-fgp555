@@ -9,12 +9,16 @@ import { MoreThan, Repository } from 'typeorm';
 import { Product } from './products.entity';
 import { IProduct } from './products.interfaces';
 import { OrderDetail } from '../order-details/order-details.entity';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { Category } from '../categories/categories.entity';
 
 @Injectable()
 export class ProductsDbService {
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
     // @InjectRepository(OrderDetail)
     // private readonly orderDetailRepository: Repository<OrderDetail>,
   ) {}
@@ -51,12 +55,6 @@ export class ProductsDbService {
   }
 
   async findByName(name: string) {
-    //   if (relatedOrderDetails.length > 0) {
-    // const product = await this.productsRepository.findOne({ where: { name } });
-    // if (!product) {
-    //   throw new NotFoundException('Product not found');
-    // }
-    // return product;
     return this.productsRepository.findOne({ where: { name } });
   }
 
@@ -68,20 +66,26 @@ export class ProductsDbService {
     return product;
   }
 
-  async updateProduct(
-    id: string,
-    productData: Partial<IProduct>,
-  ) /* : Promise<number> */ {
+  async updateProduct(id: string, productUpdate: UpdateProductDto) {
     const product = await this.productsRepository.findOne({ where: { id } });
     if (!product) {
       throw new NotFoundException('Product not found');
     }
-    Object.assign(product, productData);
+    const allCategories = await this.categoryRepository.find();
+    const foundCategory = await this.categoryRepository.findOne({
+      where: { name: productUpdate.category },
+    });
+    if (!foundCategory) {
+      throw new NotFoundException('Category not found');
+    }
+
+    Object.assign(product, productUpdate);
+    product.category = foundCategory;
     await this.productsRepository.save(product);
     return product;
   }
 
-  async deleteProduct(id: string) /* : Promise<number> */ {
+  async deleteProduct(id: string) {
     const deleteResult = await this.productsRepository.delete(id);
     if (deleteResult.affected === 0) {
       throw new NotFoundException('Product not found');

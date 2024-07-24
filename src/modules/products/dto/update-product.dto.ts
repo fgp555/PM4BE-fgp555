@@ -13,14 +13,15 @@ import {
   IsOptional,
 } from 'class-validator';
 
-export class CreateProductDto {
+export class UpdateProductDto {
   @IsString()
   @IsNotEmpty({ message: 'El nombre es requerido' })
   @MinLength(3, { message: 'El nombre debe tener al menos 3 caracteres' })
   @MaxLength(100, { message: 'El nombre no debe superar los 100 caracteres' })
+  @IsOptional()
   @ApiProperty({
     description: 'Product name',
-    example: 'New Product',
+    example: 'Update Product',
   })
   name: string;
 
@@ -30,14 +31,16 @@ export class CreateProductDto {
   @MaxLength(500, {
     message: 'La descripción no debe superar los 500 caracteres',
   })
+  @IsOptional()
   @ApiProperty({
     description: 'Product description ',
-    example: 'This is a new product',
+    example: 'This is a Update product',
   })
   description: string;
 
   @IsNumber()
   @Min(0, { message: 'El precio debe ser al menos 0' })
+  @IsOptional()
   @ApiProperty({
     description: 'Product price',
     example: 1000,
@@ -46,6 +49,7 @@ export class CreateProductDto {
 
   @IsNumber()
   @Min(0, { message: 'El stock debe ser al menos 0' })
+  @IsOptional()
   @ApiProperty({
     description: 'Product stock',
     example: 10,
@@ -56,6 +60,7 @@ export class CreateProductDto {
   @IsNotEmpty({ message: 'La categoría es requerida' })
   @MinLength(3, { message: 'La categoría debe tener al menos 3 caracteres' })
   @MaxLength(50, { message: 'La categoría no debe superar los 50 caracteres' })
+  @IsOptional()
   @ApiProperty({
     description: 'Product category',
     example: 'smartphone',

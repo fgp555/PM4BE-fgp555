@@ -74,7 +74,7 @@ export class SignUpDto {
     example: 'Perú',
   })
   country: string;
-  
+
   @IsString()
   @IsNotEmpty({ message: 'La ciudad es requerida' })
   @MinLength(5, { message: 'La ciudad debe tener al menos 5 caracteres' })

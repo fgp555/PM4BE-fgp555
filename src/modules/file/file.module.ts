@@ -9,11 +9,6 @@ import { Product } from '../products/products.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Product])],
   controllers: [FileController],
-  providers: [
-    FileService,
-    CloudinaryConfig,
-    CloudinaryService,
-    //
-  ],
+  providers: [FileService, CloudinaryConfig, CloudinaryService],
 })
 export class FileModule {}

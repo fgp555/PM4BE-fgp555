@@ -6,7 +6,6 @@ import {
   IsNotEmpty,
   IsNumber,
   Min,
-  Max,
   IsUrl,
   MinLength,
   MaxLength,

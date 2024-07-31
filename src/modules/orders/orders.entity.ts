@@ -24,7 +24,6 @@ export class Order {
   @Column({ default: new Date(), type: 'date' })
   date: Date;
 
-  // @Column({ default: 0 })
   @Column('decimal', { precision: 10, scale: 2, nullable: true })
   totalAmount: number;
 
@@ -32,13 +31,3 @@ export class Order {
   @JoinTable()
   orderDetails: OrderDetail[];
 }
-
-/* 
-
-Orders
-
-id: debe ser un valor único generado automáticamente en formato UUID. No puede ser nulo y actúa como la clave primaria de la entidad.
-user_id:  (Relación 1:N) con users.
-date.
-Relación 1:1 con orderDetails.
-*/

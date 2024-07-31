@@ -1,9 +1,12 @@
+// src/interceptors/date-adder.interceptor.ts
+
 import {
   CallHandler,
   ExecutionContext,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
+// Reactive Extensions for JavaScript
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -22,6 +25,7 @@ export class DateAdderInterceptor implements NestInterceptor {
       //   second: "numeric",
       //   hour12: false
     });
+
     const request = context.switchToHttp().getRequest();
     request.now = format;
     return next.handle();

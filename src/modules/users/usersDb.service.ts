@@ -12,10 +12,12 @@ export class UsersDbService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
+  // ========================================
   async saveUser(user: Partial<User>) {
     return await this.usersRepository.save(user);
   }
 
+  // ========================================
   async getAllUsers(page: number, limit: number) {
     const [result, total] = await this.usersRepository.findAndCount({
       skip: (page - 1) * limit,
@@ -30,17 +32,15 @@ export class UsersDbService {
     return newResult;
   }
 
-  async getUserById(id: string) /* : Promise<User> */ {
+  // ========================================
+  async getUserById(id: string) {
     const user = await this.usersRepository.findOne({
       where: { id },
       relations: ['orders'],
     });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+    if (!user) throw new NotFoundException('User not found');
 
     const { password, isAdmin, ...restUser } = user;
-
     return restUser;
   }
 
@@ -48,6 +48,7 @@ export class UsersDbService {
     return this.usersRepository.findOne({ where: { email } });
   }
 
+  // ========================================
   async updateUser(id: string, userData: Partial<any>): Promise<User | null> {
     const userFound = await this.usersRepository.findOne({ where: { id } });
     if (!userFound) {
@@ -57,7 +58,8 @@ export class UsersDbService {
     return await this.usersRepository.save(userFound);
   }
 
-  async deleteUser(id: string): Promise<any | null> {
+  // ========================================
+  async deleteUser(id: string) {
     const deleteResult = await this.usersRepository.delete(id);
     if (deleteResult.affected === 0) {
       return null;

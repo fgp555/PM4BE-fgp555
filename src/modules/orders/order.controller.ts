@@ -11,8 +11,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  @ApiBearerAuth()
   @Post()
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async addOrderController(@Body() order: CreateOrderDto) {
     const result = await this.orderService.addOrderService(order);
@@ -25,8 +25,8 @@ export class OrderController {
     return result;
   }
 
-  @ApiBearerAuth()
   @Get(':id')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async getOrderByIdController(@Param('id') id: string) {
     const result = await this.orderService.getOrderByIdService(id);

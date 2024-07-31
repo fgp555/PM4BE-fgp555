@@ -17,7 +17,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Iphone 14",
+  "name": "new product",
   "description": "A new product",
   "price": 50.50,
   "stock": 10,
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 
 ### Get all products (with pagination)
-GET http://localhost:3000/products?page=1&limit=3
+GET http://localhost:3000/products?page=1&limit=30
 
 ### Get all products
 GET http://localhost:3000/products

@@ -3,9 +3,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
-import { UsersRepository } from '../users/users.repository';
 import { SignUpDto } from './dtos/signup.dto';
 import * as bcrypt from 'bcrypt';
 import { UsersDbService } from '../users/usersDb.service';
@@ -19,7 +17,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  // ====================
+  // ========================================
   async signUp(bodyObject: SignUpDto) {
     const foundUser = await this.usersDbService.findUserByEmail(
       bodyObject.email,
@@ -41,7 +39,7 @@ export class AuthService {
     return { success: 'User created successfully', result: userRest };
   }
 
-  // ====================
+  // ========================================
   async signIn(email: string, password: string) {
     const foundUser = await this.usersDbService.findUserByEmail(email);
     if (!foundUser) {
@@ -60,9 +58,7 @@ export class AuthService {
       roles: [foundUser.isAdmin ? RolesEnum.Admin : RolesEnum.User],
     };
     const token = this.jwtService.sign(userPayload);
-
     const { password: _, ...user } = foundUser;
-
     return { success: 'User logged in successfully', user, token };
   }
 }

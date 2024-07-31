@@ -3,8 +3,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Order } from '../orders/orders.entity';
@@ -17,7 +15,6 @@ export class User {
   @Column({ length: 50 })
   name: string;
 
-  // @Column({ length: 50, unique: true })
   @Column({ length: 50, unique: false })
   email: string;
 

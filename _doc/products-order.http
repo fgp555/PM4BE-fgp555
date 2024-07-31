@@ -1,6 +1,6 @@
 # Definir variables locales
 @base_url = http://localhost:3000/
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzM4MGJlOS0xMmRhLTRkYWMtODhiOC0zNmFkZTVhZGQxZTAiLCJpZCI6IjI3MzgwYmU5LTEyZGEtNGRhYy04OGI4LTM2YWRlNWFkZDFlMCIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzIxNzk2Njc2LCJleHAiOjE3MjI2NjA2NzZ9.fAz381sJ44eh3-TdaFTwHcW0i1Qs0nWOfJpcY8yVBV4
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MTczMzhkNS1hZmUyLTQ2YjktOWYwMy0wYTM1MzQyMGQwNDkiLCJpZCI6IjgxNzMzOGQ1LWFmZTItNDZiOS05ZjAzLTBhMzUzNDIwZDA0OSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzIyOTg5NzAxLCJleHAiOjE3MjM4NTM3MDF9.v99QoLklKIazh_FgRooUCYPN24qUPlSDjKG5yESmJno
 @user_id = 4ca18e77-f30c-4702-a90a-0e8cae90b6d1
 @product_id_1 = f6fbba5e-3f59-458d-b18a-e0d440f70998
 @product_id_2 = b64218eb-2e55-42d2-afca-1402b2d5a792
@@ -17,7 +17,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Iphone 14",
+  "name": "new product",
   "description": "A new product",
   "price": 50.50,
   "stock": 10,
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 
 ### Get all products (with pagination)
-GET http://localhost:3000/products?page=1&limit=3
+GET http://localhost:3000/products?page=1&limit=30
 
 ### Get all products
 GET http://localhost:3000/products

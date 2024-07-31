@@ -3,7 +3,6 @@
 import {
   Controller,
   Get,
-  Post,
   Put,
   Delete,
   Param,
@@ -14,16 +13,12 @@ import {
   UseGuards,
   NotFoundException,
   BadRequestException,
-  UseInterceptors,
-  Req,
   HttpException,
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthGuard } from '../auth/auth.guard';
 import { UsersDbService } from './usersDb.service';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { DateAdderInterceptor } from '../../interceptors/date-adder.interceptor';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { Roles } from './decorator/roles.decorator';
 import { RolesEnum } from './enum/roles.enum';
@@ -35,8 +30,8 @@ import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 export class UserController {
   constructor(private readonly usersDbService: UsersDbService) {}
 
-  // Obtener todos los usuarios
-  @Get()
+// ========================================  
+@Get()
   @ApiQuery({
     name: 'limit',
     required: false,
@@ -49,8 +44,9 @@ export class UserController {
     description: 'Page number',
     schema: { default: 1 },
   })
-  // @UsePipes(new ValidationPipe({ transform: true }))
-  async getUsers(
+
+// ========================================  
+async getUsers(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 5,
     @Res() res: Response,
@@ -72,11 +68,11 @@ export class UserController {
     }
   }
 
+// ========================================  
   @Get(':id')
   @ApiBearerAuth()
-  @Roles(RolesEnum.Admin)
   @UseGuards(AuthGuard, RolesGuard)
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.Admin)
   async getUser(@Param('id', ParseUUIDPipe) id: string, @Res() res: Response) {
     try {
       const user = await this.usersDbService.getUserById(id);

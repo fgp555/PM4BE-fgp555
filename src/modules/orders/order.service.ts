@@ -13,8 +13,6 @@ import { OrderDetail } from '../order-details/order-details.entity';
 @Injectable()
 export class OrderService {
   constructor(
-    // @InjectRepository(Order)
-    // private readonly orderRepository: Repository<Order>,
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
     @InjectRepository(User)
@@ -25,16 +23,17 @@ export class OrderService {
     private readonly orderDetailRepository: Repository<OrderDetail>,
   ) {}
 
+  // ========================================
   async addOrderService(body: any) {
     const { userId, products } = body;
 
-    // ========== userFound ==========
+    // ========== userFound
     const userFound = await this.userRepository.findOneBy({ id: userId });
     if (!userFound) {
       throw new NotFoundException('User not found');
     }
 
-    // ========== newOrder ==========
+    // ========== newOrder
     const newOrder = new Order();
     newOrder.user_id = userFound;
     await this.orderRepository.save(newOrder);
@@ -42,7 +41,7 @@ export class OrderService {
     let totalAmount = 0;
     const orderDetails = [];
 
-    // ========== productFound ==========
+    // ========== productFound
     for (const productRequest of products) {
       const productFound = await this.productRepository.findOneBy({
         id: productRequest.id,
@@ -53,7 +52,7 @@ export class OrderService {
         );
       }
 
-      // ========== Update productFound ==========
+      // ========== Update productFound
       if (productFound.stock <= 0) {
         throw new BadRequestException(
           `Product with id ${productRequest.id} is out of stock`,
@@ -70,7 +69,7 @@ export class OrderService {
         );
       }
 
-      // ========== newOrderDetail ==========
+      // ========== newOrderDetail
       const newOrderDetail = new OrderDetail();
       newOrderDetail.order_id = newOrder;
       newOrderDetail.product_id = productFound;
@@ -91,54 +90,25 @@ export class OrderService {
     // return body
   }
 
+  // ========================================
   async getOrderService() {
     return await this.orderRepository.find();
   }
 
-  // async getOrderByIdService(id: string) {
-  //   // const orderFound = await this.orderRepository.find();
-  //   const orderFound = await this.orderRepository.findOneBy({ id });
-  //   if (!orderFound) {
-  //     throw new NotFoundException(`Order with id ${id} not found`);
-  //   }
-
-  //   return orderFound;
-
-  //   // return await this.orderRepository.findOneBy({ id });
-  // }
+  // ========================================
   async getOrderByIdService(id: string) {
-    // Fetch the order by ID
     const orderFound = await this.orderRepository.findOneBy({ id });
     if (!orderFound) {
       throw new NotFoundException(`Order with id ${id} not found`);
     }
 
-    // Fetch the order details associated with the order
     const orderDetails = await this.orderDetailRepository.find({
       where: { order_id: { id: orderFound.id } },
       relations: ['product_id'],
     });
 
-
-    // Map the order details to include the product information
-    // const detailedOrder = {
-    //   ...orderFound,
-    //   orderDetails: orderDetails.map(detail => ({
-
-    //     id: detail.id,
-    //     productId: detail.product_id.id,
-    //     productName: detail.product_id.name,
-    //     productPrice: detail.product_id.price,
-    //     productStock: detail.product_id.stock,
-    //     productDescription: detail.product_id.description,
-    //     productImage: detail.product_id.imgUrl,
-    //     // quantity: detail.quantity, // Assuming you have a quantity field in OrderDetail
-    //   })),
-    // };
-
     const detailedOrder = { ...orderFound, orderDetails };
 
     return detailedOrder;
-    // return "temp"
   }
 }

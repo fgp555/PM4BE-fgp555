@@ -1,7 +1,7 @@
 // src/users/dto/update-user.dto.ts
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
   @IsString()
@@ -10,7 +10,7 @@ export class UpdateUserDto {
     description: 'User name description',
     example: 'User 1 Update',
   })
-  name?: string;
+  name: string;
 
   @IsString()
   @IsOptional()
@@ -34,7 +34,7 @@ export class UpdateUserDto {
     description: 'User address description',
     example: 'Calle 123',
   })
-  address?: string;
+  address: string;
 
   @IsString()
   @IsOptional()
@@ -42,7 +42,7 @@ export class UpdateUserDto {
     description: 'User phone description',
     example: '123456789',
   })
-  phone?: string;
+  phone: string;
 
   @IsString()
   @IsOptional()
@@ -50,7 +50,7 @@ export class UpdateUserDto {
     description: 'User address description',
     example: 'Calle 456',
   })
-  country?: string;
+  country: string;
 
   @IsString()
   @IsOptional()
@@ -58,5 +58,5 @@ export class UpdateUserDto {
     description: 'User city description',
     example: 'Juliaca',
   })
-  city?: string;
+  city: string;
 }

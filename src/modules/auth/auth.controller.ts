@@ -6,6 +6,7 @@ import {
   Res,
   HttpStatus,
   HttpException,
+  Delete,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
@@ -18,6 +19,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  // ========================================
   @Post('signup')
   async signUp(
     @Body() body: SignUpDto,
@@ -39,6 +41,7 @@ export class AuthController {
     }
   }
 
+  // ========================================
   @Post('signin')
   async signIn(@Body() login: SignInDto) {
     const { email, password } = login;

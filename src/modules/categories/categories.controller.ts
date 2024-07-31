@@ -6,11 +6,16 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoryService } from './categories.service';
 import { CategorySeederService } from './category.seed';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateCategoryDTO } from './dtos/category.entity';
+import { Roles } from '../users/decorator/roles.decorator';
+import { RolesEnum } from '../users/enum/roles.enum';
+import { AuthGuard } from '../auth/auth.guard';
+import { RolesGuard } from '../users/roles.guard';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -38,18 +43,18 @@ export class CategoriesController {
 
   // ========================================
   @Post()
+  @Roles(RolesEnum.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   async addCategories(@Body() category: CreateCategoryDTO) {
     try {
       return await this.categoryService.addCategories(category);
     } catch (error) {
       if (error instanceof ConflictException) {
-        // Handle the conflict exception and send a custom message
         return {
           statusCode: 409,
           message: error.message,
         };
       }
-      // Re-throw the error if it's not a conflict exception
       throw error;
     }
   }

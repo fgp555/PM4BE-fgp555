@@ -14,16 +14,10 @@ import {
   HttpCode,
   ParseUUIDPipe,
 } from '@nestjs/common';
-import { ProductService } from './products.service';
 import { Response } from 'express';
-import { IProduct } from './products.interfaces';
 import { AuthGuard } from '../auth/auth.guard';
 import { ProductsDbService } from './productsDb.service';
-import { Product, Product as ProductEntity } from './products.entity';
 import { ProductSeederService } from './product.seed';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Category } from '../categories/categories.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { CategoryService } from '../categories/categories.service';
 import { Roles } from '../users/decorator/roles.decorator';
@@ -36,17 +30,12 @@ import { UpdateProductDto } from './dto/update-product.dto';
 @Controller('products')
 export class ProductController {
   constructor(
-    private readonly productService: ProductService,
     private readonly productsDbService: ProductsDbService,
     private readonly productSeederService: ProductSeederService,
     private readonly categoryService: CategoryService,
-
-    @InjectRepository(Product)
-    private readonly productRepository: Repository<Product>,
-    @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>,
   ) {}
 
+  // ========================================
   @Post('seeder')
   @HttpCode(HttpStatus.CREATED)
   async seed() {
@@ -56,6 +45,7 @@ export class ProductController {
     };
   }
 
+  // ========================================
   @Get()
   @ApiQuery({
     name: 'limit',
@@ -78,6 +68,7 @@ export class ProductController {
     res.status(HttpStatus.OK).json(products);
   }
 
+  // ========================================
   @Get(':id')
   async getProduct(
     @Param('id', ParseUUIDPipe) id: string,
@@ -87,6 +78,7 @@ export class ProductController {
     res.status(HttpStatus.OK).json(product);
   }
 
+  // ========================================
   @Post()
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
@@ -112,8 +104,9 @@ export class ProductController {
     return res.status(HttpStatus.CREATED).json(newProduct);
   }
 
-  @ApiBearerAuth()
+  // ========================================
   @Put(':id')
+  @ApiBearerAuth()
   @Roles(RolesEnum.Admin)
   @UseGuards(AuthGuard, RolesGuard)
   async updateProduct(
@@ -125,8 +118,9 @@ export class ProductController {
     res.status(HttpStatus.OK).json({ id: updatedId });
   }
 
-  @ApiBearerAuth()
+  // ========================================
   @Delete(':id')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async deleteProduct(
     @Param('id', ParseUUIDPipe) id: string,

@@ -33,14 +33,13 @@ export class FileController {
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  // ========== UPLOAD IMAGE ==========
-
+  // ========================================
+  @Post('uploadImage/:productID')
   @ApiBearerAuth()
-  @Post('uploadImage/:id')
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   @UsePipes(MinSizeValidatorPipe)
-  // input file...
+  // swagger input file in /api...
   @ApiOperation({ summary: 'Upload a file' })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -48,16 +47,13 @@ export class FileController {
     schema: {
       type: 'object',
       properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
+        file: { type: 'string', format: 'binary' },
       },
     },
   })
-  // input file.
+  // swagger input file in /api.
   async uploadImageController(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('productID', ParseUUIDPipe) productID: string,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -77,12 +73,13 @@ export class FileController {
     const cloudinaryResult = await this.cloudinaryService.uploadImage(file);
     const { url } = cloudinaryResult;
 
-    const updateProduct = await this.fileService.uploadProductImage(id, url);
+    const updateProduct = await this.fileService.uploadProductImage(productID, url);
     return updateProduct;
   }
 
-  @ApiExcludeEndpoint()
+  // ========================================
   @Post('test')
+  @ApiExcludeEndpoint()
   @UseInterceptors(FileInterceptor('image'))
   async test_uploadImageController(
     @UploadedFile(new ParseFilePipe())

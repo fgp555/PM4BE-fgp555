@@ -9,7 +9,6 @@ import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  // const app = await NestFactory.create(AppModule);
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.use(loggerGlobal);
@@ -28,17 +27,17 @@ async function bootstrap() {
     }),
   );
 
-  // Configuración de Swagger
+  // Swagger
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Nest Demo')
-    .setDescription('The Nest Demo API description')
-    .setVersion('1.0')
-    .addBearerAuth()
+    .setTitle('Ecommerce API Henry | Frank GP')
+    .setDescription('The Ecommerce API  <br> <br> <b>by <a href="https://frankgp.com">frankgp.com</a></b> ')
+    .setVersion('2024')
+    .addBearerAuth( )
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
-  // Sirve archivos estáticos desde la carpeta 'public'
+  // Serve static files in 'public'
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
   // Seeders
@@ -47,7 +46,7 @@ async function bootstrap() {
 
   const productSeeder = app.get(ProductSeederService);
   await productSeeder.seed();
-  
+
   app.enableCors();
 
   await app.listen(3000);

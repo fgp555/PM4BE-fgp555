@@ -55,7 +55,7 @@ export class AuthService {
       sub: foundUser.id,
       id: foundUser.id,
       email: foundUser.email,
-      roles: [foundUser.isAdmin ? RolesEnum.Admin : RolesEnum.User],
+      roles: [foundUser.roles ? RolesEnum.Admin : RolesEnum.User],
     };
     const token = this.jwtService.sign(userPayload);
     const { password: _, ...user } = foundUser;

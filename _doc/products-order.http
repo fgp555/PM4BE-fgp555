@@ -5,7 +5,7 @@
 @product_id_1 = f6fbba5e-3f59-458d-b18a-e0d440f70998
 @product_id_2 = b64218eb-2e55-42d2-afca-1402b2d5a792
 
-@order_id = 007573fa-b295-467c-8be3-6781d7f9344f
+@order_id = 5c14c2e8-769c-430d-b919-d46a059b3d45
 
 # ========== products ==========
 ### seeder

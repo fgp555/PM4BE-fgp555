@@ -9,13 +9,15 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "user1@gmail.com",
+  "email": "User1@gmail.com",
   "name": "New User 2",
   "password": "P4ss123@",
   "address": "new address",
   "phone": "987654321",
   "country": "New Country",
-  "city": "New City"
+  "city": "New City",
+  "whatsapp": "123123123",
+  "roles": ["admin"]
 }
 
 ### signin
@@ -23,7 +25,7 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "user1@gmail.com",
+  "email": "User1@gmail.com",
   "password": "P4ss123@"
 }
 

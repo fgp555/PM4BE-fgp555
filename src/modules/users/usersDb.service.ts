@@ -40,7 +40,7 @@ export class UsersDbService {
     });
     if (!user) throw new NotFoundException('User not found');
 
-    const { password, isAdmin, ...restUser } = user;
+    const { password, roles, ...restUser } = user;
     return restUser;
   }
 

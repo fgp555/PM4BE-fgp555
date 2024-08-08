@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CategoryService } from './categories.service';
 import { CategorySeederService } from './category.seed';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateCategoryDTO } from './dtos/category.entity';
 import { Roles } from '../users/decorator/roles.decorator';
 import { RolesEnum } from '../users/enum/roles.enum';
@@ -43,9 +43,11 @@ export class CategoriesController {
 
   // ========================================
   @Post()
+  @ApiBearerAuth()
   @Roles(RolesEnum.Admin)
   @UseGuards(AuthGuard, RolesGuard)
   async addCategories(@Body() category: CreateCategoryDTO) {
+    console.log("addCategories")
     try {
       return await this.categoryService.addCategories(category);
     } catch (error) {

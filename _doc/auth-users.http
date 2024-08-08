@@ -1,6 +1,6 @@
 # Definir variables locales
 @base_url = http://localhost:3000/
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzM4MGJlOS0xMmRhLTRkYWMtODhiOC0zNmFkZTVhZGQxZTAiLCJpZCI6IjI3MzgwYmU5LTEyZGEtNGRhYy04OGI4LTM2YWRlNWFkZDFlMCIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzIxNzk2Njc2LCJleHAiOjE3MjI2NjA2NzZ9.fAz381sJ44eh3-TdaFTwHcW0i1Qs0nWOfJpcY8yVBV4
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZTZmMThjZC1kODA1LTQ3ZGYtOWZhNy1lYTljNjFjMGNkOWQiLCJpZCI6IjllNmYxOGNkLWQ4MDUtNDdkZi05ZmE3LWVhOWM2MWMwY2Q5ZCIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzI0MzQ2NDI5LCJleHAiOjE3MjUyMTA0Mjl9.frmNGRB0DR-aXldkQCZ2sX4mwF-kjjEsIHeXPvJAO84
 @user_id = 4ca18e77-f30c-4702-a90a-0e8cae90b6d1
 
 # ========== Auth ==========
@@ -9,13 +9,15 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "user1@gmail.com",
+  "email": "User1235@gmail.com",
   "name": "New User 2",
   "password": "P4ss123@",
   "address": "new address",
   "phone": "987654321",
   "country": "New Country",
-  "city": "New City"
+  "city": "New City",
+  "whatsapp": "123123123",
+  "roles": ["admin"]
 }
 
 ### signin
@@ -23,7 +25,7 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "user1@gmail.com",
+  "email": "User1@gmail.com",
   "password": "P4ss123@"
 }
 
@@ -37,7 +39,7 @@ Authorization: Bearer {{token}}
 
 
 ### Get all users (with pagination) - Requires Authorization
-GET http://localhost:3000/users?page=1&limit=1
+GET http://localhost:3000/users?page=1&limit=2
 Authorization: Bearer {{token}}
 
 ### Get a specific user by ID - Requires Authorization

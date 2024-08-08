@@ -7,12 +7,14 @@ import {
   HttpStatus,
   HttpException,
   Delete,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { SignInDto } from './dtos/signin.dto';
 import { SignUpDto } from './dtos/signup.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { TransformEmailInterceptor } from 'src/interceptors/email.interceptor';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -21,6 +23,7 @@ export class AuthController {
 
   // ========================================
   @Post('signup')
+  @UseInterceptors(TransformEmailInterceptor)
   async signUp(
     @Body() body: SignUpDto,
     @Res() res: Response,
@@ -43,8 +46,10 @@ export class AuthController {
 
   // ========================================
   @Post('signin')
+  @UseInterceptors(TransformEmailInterceptor)
   async signIn(@Body() login: SignInDto) {
     const { email, password } = login;
+    console.log(email)
     return await this.authService.signIn(email, password);
   }
 }

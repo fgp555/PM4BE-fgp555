@@ -15,6 +15,7 @@ import {
   BadRequestException,
   HttpException,
   ParseUUIDPipe,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthGuard } from '../auth/auth.guard';
@@ -24,14 +25,15 @@ import { Roles } from './decorator/roles.decorator';
 import { RolesEnum } from './enum/roles.enum';
 import { RolesGuard } from './roles.guard';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { TransformEmailInterceptor } from 'src/interceptors/email.interceptor';
 
 @ApiTags('Users')
 @Controller('users')
 export class UserController {
   constructor(private readonly usersDbService: UsersDbService) {}
 
-// ========================================  
-@Get()
+  // ========================================
+  @Get()
   @ApiQuery({
     name: 'limit',
     required: false,
@@ -45,8 +47,8 @@ export class UserController {
     schema: { default: 1 },
   })
 
-// ========================================  
-async getUsers(
+  // ========================================
+  async getUsers(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 5,
     @Res() res: Response,
@@ -68,7 +70,7 @@ async getUsers(
     }
   }
 
-// ========================================  
+  // ========================================
   @Get(':id')
   @ApiBearerAuth()
   @UseGuards(AuthGuard, RolesGuard)

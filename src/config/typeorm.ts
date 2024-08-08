@@ -1,8 +1,8 @@
 // src/config/typeorm.ts
 
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { config as dotenvConfig } from 'dotenv';
 import { registerAs } from '@nestjs/config';
+import { config as dotenvConfig } from 'dotenv';
 
 dotenvConfig({ path: '.env.development' });
 

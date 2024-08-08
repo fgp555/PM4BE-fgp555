@@ -7,7 +7,7 @@ GET  http://localhost:3000/categories
 ### Create categories
 POST http://localhost:3000/categories
 Content-Type: application/json
-Authorization: Basic: <email>:<password>
+Authorization: Basic: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYzAyMmIzOC02YmI4LTRkNWUtYWU2OC04M2ZkZTk0YmMxZGEiLCJpZCI6ImVjMDIyYjM4LTZiYjgtNGQ1ZS1hZTY4LTgzZmRlOTRiYzFkYSIsImVtYWlsIjoidXNlcjEyM3NAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzIzMDk2NDQ4LCJleHAiOjE3MjM5NjA0NDh9.8xe4I_Bfj_5rMRJ1uodIPvgRr3uhhlaOI-8XhNLl6TE
 
 { "name": "laptop" }
 

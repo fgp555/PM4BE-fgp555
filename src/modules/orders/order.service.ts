@@ -98,6 +98,7 @@ export class OrderService {
   // ========================================
   async getOrderByIdService(id: string) {
     const orderFound = await this.orderRepository.findOneBy({ id });
+    console.log('orderFound:', orderFound);
     if (!orderFound) {
       throw new NotFoundException(`Order with id ${id} not found`);
     }
@@ -107,7 +108,12 @@ export class OrderService {
       relations: ['product_id'],
     });
 
-    const detailedOrder = { ...orderFound, orderDetails };
+    const detailedOrder = {
+      ...orderFound,
+      user_id: orderFound.user_id, // Include user_id
+      asdf: orderFound.user_id,
+      orderDetails,
+    };
 
     return detailedOrder;
   }

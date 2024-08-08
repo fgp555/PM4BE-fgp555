@@ -9,7 +9,11 @@ import {
   MaxLength,
   Matches,
   IsNumberString,
+  IsArray,
+  ArrayNotEmpty,
+  IsEnum,
 } from 'class-validator';
+import { RolesEnum } from 'src/modules/users/enum/roles.enum';
 
 export class SignUpDto {
   @IsString()
@@ -84,4 +88,24 @@ export class SignUpDto {
     example: 'Juliaca',
   })
   city: string;
+
+  @IsNumberString({}, { message: 'El número de teléfono debe ser un número' })
+  @IsNotEmpty({ message: 'El número de teléfono es requerido' })
+  @ApiProperty({
+    description: 'User phone description',
+    example: '123456789',
+  })
+  whatsapp: string;
+
+  @IsArray()
+  @ArrayNotEmpty({ message: 'Los roles son requeridos' })
+  @IsEnum(RolesEnum, {
+    each: true,
+    message: 'Cada rol debe ser un valor válido',
+  })
+  @ApiProperty({
+    description: 'User roles',
+    example: ['user'],
+  })
+  roles: RolesEnum[];
 }

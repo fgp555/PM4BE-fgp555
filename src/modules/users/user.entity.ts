@@ -3,9 +3,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Order } from '../orders/orders.entity';
+import { RolesEnum } from './enum/roles.enum';
 
 @Entity({ name: 'users' })
 export class User {
@@ -36,6 +38,9 @@ export class User {
   @OneToMany(() => Order, (order) => order.user_id)
   orders: Order[];
 
-  @Column({ default: true })
-  isAdmin: boolean;
+  @Column("simple-array")
+  roles: RolesEnum[];
+
+  @Column()
+  whatsapp: string
 }
